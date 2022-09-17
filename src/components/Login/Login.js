@@ -1,35 +1,51 @@
-import { useState } from 'react';
 import './Login.scss';
 import { postLogin } from '../../utils/axios';
-import GamePage from '../../pages/GamePage/GamePage';
+import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useRef } from 'react';
 
 const Login = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isSubmitted, setIsSubmitted] = useState(false);
+
+    const [userName, setUserName] = useState(null);
+    const [password, setPassword] = useState(null);
+    const navigate = useNavigate();
 
     // sign up when the form is submitted
     const handleSubmit = (event) => {
-
-        // send post request
-        postLogin({
-            userName: event.target.userName.value,
-            password: event.target.password.value
-        })
-        .then(resolve => {
-            sessionStorage.token = resolve.data.token;
-            setIsLoggedIn(true);
-        })
-        .catch(error => {
-            console.log(error);
-            alert("Failed to login");
-        })
+        setIsSubmitted(true);
+        setUserName(event.target.userName.value);
+        setPassword(event.target.password.value);
 
         event.preventDefault();
         event.target.reset();
     }
 
+    useEffect(()=>{
+        if(isSubmitted){
+            // send post request
+            postLogin({
+                userName: userName,
+                password: password
+            })
+            .then(resolve => {
+                const tokenLocation =  `token${userName}`;
+                sessionStorage.setItem(tokenLocation, resolve.data.token);
+                setIsLoggedIn(true);
+            })
+            .catch(error => {
+                console.log(error);
+                alert("Failed to login");
+            })
+        }
+    }, [isSubmitted])
+
+
     if(isLoggedIn){
-        return <GamePage />
+        // pass currentUser as a parameter so that GamePage can use it for auth header
+        navigate('/game', {state: {userName: userName}});
     }
+
 
   return (
     <>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './SignUp.scss';
 import { postSignUp } from '../../utils/axios';
-import Login from '../Login/Login';
+import { Navigate } from 'react-router-dom';
 
 
 const SignUp = () => {
@@ -29,7 +29,7 @@ const SignUp = () => {
     }
 
     if(isSignedUp){
-        return <Login />
+        return <Navigate to="/users/login" />;
     }
 
     return (
