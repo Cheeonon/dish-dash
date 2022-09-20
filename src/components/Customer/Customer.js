@@ -1,7 +1,6 @@
 import './Customer.scss';
 
-const Customer = ({customerPositionY, customerCount, customersCurrentPosition}) => {
-    console.log(customersCurrentPosition)
+const Customer = ({customerPositionY, customerCount}) => {
   return (
     <div  className={`customer customer${customerCount}`} style={{top: customerPositionY}}> {customerCount} </div>
   )

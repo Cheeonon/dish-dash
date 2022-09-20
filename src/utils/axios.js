@@ -18,3 +18,7 @@ export const getUserProfile = (token) => {
         }
     });
 };
+
+export const postScores = (body) => {
+    return axios.post(`${baseURL}/profiles/scores`, body);
+};
