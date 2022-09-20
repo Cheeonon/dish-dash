@@ -1,0 +1,20 @@
+.customer{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: rgb(192, 32, 32);
+    position: absolute;
+    left: 0;
+    animation: move 7s linear infinite;
+}
+
+
+@keyframes move {
+    from{
+        left: -0.4%;
+    }
+
+    to{
+        left: 100%;
+    }
+}

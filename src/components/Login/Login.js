@@ -43,7 +43,7 @@ const Login = () => {
 
     if(isLoggedIn){
         // pass currentUser as a parameter so that GamePage can use it for auth header
-        navigate('/game', {state: {userName: userName}});
+        navigate('/home', {state: {userName: userName}});
     }
 
 

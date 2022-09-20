@@ -1,34 +1,18 @@
-import { useEffect, useState } from 'react';
+
 import { useLocation } from 'react-router-dom';
-import { getUserProfile } from '../../utils/axios';
+import Screen from '../../components/Screen/Screen';
 import './GamePage.scss';
 
 const GamePage = () => {
-  const [hearts, setHearts] = useState(0);
-  const [isGamePage, setIsGamePage] = useState(false);
+
   const location = useLocation();
-  const token = sessionStorage.getItem(`token${location.state.userName}`);
+  const userProfile = location.state.userProfile;
 
-  useEffect(() => {
-    getUserProfile(token)
-    .then(resolve => {
-      setHearts(resolve.data.userProfile.hearts)
-      setIsGamePage(true)
-    }) 
-    .catch(error => {
-      alert("failed to get game page")
-      setIsGamePage(false)
-    })
-  }, [])
 
-  if(!isGamePage) {
-    return <h1>Loading...</h1>;
-  } 
-
-  return (
-    <>
-      <div>GamePage hearts: {hearts}</div>
-    </>
+  return(
+    <div className="game-page">
+      <Screen />
+    </div>
   )
 }
 
