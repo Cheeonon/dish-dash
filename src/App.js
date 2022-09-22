@@ -4,6 +4,8 @@ import Login from './components/Login/Login';
 import SignUp from './components/SignUp/SignUp';
 import GamePage from './pages/GamePage/GamePage';
 import HomePage from './pages/HomePage/HomePage';
+import RootPage from './pages/RootPage/RootPage';
+import LeaderboardPage from './pages/LeaderboardPage/LeaderboardPage';
 
 function App() {
   return (
@@ -13,9 +15,12 @@ function App() {
         <Route path="/users/login" element={<Login />}/>
         <Route path="/game" element={<GamePage />}/>
         <Route path="/home" element={<HomePage />}/>
+        <Route path="/leaderboard" element={<LeaderboardPage />}/>
+        <Route path="/" element={<RootPage />}/>
       </Routes>
     </BrowserRouter>
   );
 }
 
 export default App;
+ 

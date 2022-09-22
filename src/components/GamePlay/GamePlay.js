@@ -4,18 +4,21 @@ import Customer from '../Customer/Customer';
 import { postScores } from '../../utils/axios';
 
 
-import playerBackgroundURL from '../../assets/op.gif';
-import playerBackgroundDefaultURL from '../../assets/playerDefault.gif';
+import playerBackgroundURL from '../../assets/player/op.gif';
+import playerBackgroundDefaultURL from '../../assets/player/dish-white.svg';
 
 import './GamePlay.scss';
 
 const GamePlay = ({platformArr}) => {
     const location = useLocation();
     const userProfile = location.state.userProfile;
-    // console.log(userProfile)
+    // console.log(userProile)
+
+    const [shootDish, setShootDish] = useState(false);
 
     const [currentPlatformIndex, setCurrentPlatformIndex] = useState(0);
     const [playerY, setPlayerY] = useState(platformArr[currentPlatformIndex].platformPosition);
+    const [dishY, setDishY] = useState(platformArr[currentPlatformIndex].platformPosition);
     const [score, setScore] = useState(0);
     const [playerBackground, setPlayerBackground] = useState(false);
 
@@ -29,8 +32,8 @@ const GamePlay = ({platformArr}) => {
 
     //  player movement
     useEffect(() => {
-        const handleMove = (event) => {
 
+        const handleMove = (event) => {
             const lastPlatformIndex = platformArr.length - 1;
 
             if (event.key === "ArrowDown") {
@@ -41,49 +44,55 @@ const GamePlay = ({platformArr}) => {
                 } else{
                     setCurrentPlatformIndex(0);
                 }    
-
-                // set player y to current platform
-                setPlayerY(platformArr[currentPlatformIndex].platformPosition);
-
             } 
-            // else if (event.key === "ArrowUp"){
+            else if (event.key === "ArrowUp"){
 
-            //     // minus one index of platform
-            //     if(currentPlatformIndex > 0){
-            //         setCurrentPlatformIndex(currentPlatformIndex - 1);
-            //     } else{
-            //         setCurrentPlatformIndex(lastPlatformIndex);
-            //     }
+                // minus one index of platform
+                if(currentPlatformIndex > 0){
+                    setCurrentPlatformIndex(currentPlatformIndex - 1);
 
-            //     setPlayerY(platformArr[currentPlatformIndex].platformPosition);
+                } else{
+                    setCurrentPlatformIndex(lastPlatformIndex);
 
-            // } 
-            // shoot dish. add dish to dish array
+                }
+            } 
 
-
-
-
+            // 이거 해야됨!!!
             else if(event.key === "z"){
-                
-                // index  다시 계산하기 ㅡㅡ
-                const dishY = playerY
-                const newDishes = [...dishArr];
-                setDishCount(dishCount + 1);
-                const dishIndex = dishCount + 1
+                // 업데이트된 dishY로 렌더해야함
+                // setShootDish한 다음에
+                setDishY(playerY);
+                setShootDish(true);
 
-                newDishes.push({dishIndex, dishY, dishCount});
-                setDishArr(newDishes);
+                // const newDishes = [...dishArr];
+                // setDishCount(dishCount + 1);
+                // const dishIndex = dishCount + 1
 
+                // newDishes.push({dishIndex, dishY, dishCount});
+                // setDishArr(newDishes);
                 
                 // set player background,
-                //  after 3 seconds, set player background to default
-                setPlayerBackground(playerBackground => !playerBackground);
+                // after 3 seconds, set player background to default
+                // setPlayerBackground(playerBackground => !playerBackground);
 
-                setTimeout(() => {
-                    setPlayerBackground(playerBackground => !playerBackground);
-                }, 500);
+                // setTimeout(() => {
+                //     setPlayerBackground(playerBackground => !playerBackground);
+                // }, 500);
             }
         };
+
+        // set player y to current platform
+        setPlayerY(platformArr[currentPlatformIndex].platformPosition);
+
+        if(shootDish){
+            const newDishes = [...dishArr];
+            setDishCount(dishCount + 1);
+            const dishIndex = dishCount + 1
+            newDishes.push({dishIndex, dishY, dishCount});
+            setDishArr(newDishes);
+            setPlayerBackground(playerBackground => !playerBackground);
+            setShootDish(false);
+        }
 
         //  add eventlistener only once
         window.addEventListener("keydown", handleMove);
@@ -93,10 +102,38 @@ const GamePlay = ({platformArr}) => {
         };
     }, [currentPlatformIndex, dishArr]);
 
-     
+
+    
+
+    // useEffect(() => {
+
+    //     const handleDish = (event) => {
+
+    //         if(event.key === "z"){
+    //             // set new dish array
+    //             const dishY = playerY
+    //             const newDishes = [...dishArr];
+    //             const dishIndex = dishCount + 1
+    //             newDishes.push({dishIndex, dishY, dishCount});
+    //             setDishArr(newDishes);
+    //             setPlayerBackground(playerBackground => !playerBackground);
+    //             setTimeout(() => {
+    //                 setPlayerBackground(playerBackground => !playerBackground);
+    //             }, 500);
+    //         }
+    //     }
+
+    //     window.addEventListener("keydown", handleDish);
+
+    //     return () => {
+    //         window.removeEventListener("keydown", handleDish);
+    //     };
+        
+    // }, [dishArr]) 
+
     // new customer appears every 5 seconds
     useEffect(()=>{
-        setNewCustomer();
+        // setNewCustomer();
     }, [])
 
     const setNewCustomer = () => {
@@ -113,6 +150,8 @@ const GamePlay = ({platformArr}) => {
         
         newArr.push({customerPositionY, customerCount});
         setCustomerArr(newArr);
+
+
     }, [customerCount])
 
 
@@ -128,6 +167,7 @@ const GamePlay = ({platformArr}) => {
                     if(selectedDish.getBoundingClientRect().x <= 0){
                         const survivedDishes = dishArr.filter(dish => dish.dishIndex !== dishArr[i].dishIndex);
                         setDishArr(survivedDishes);
+
                     }
                 }
             }
@@ -155,9 +195,13 @@ const GamePlay = ({platformArr}) => {
                             
                             // compare position of dish and customer
                             if(selectedDish){
-                     
+
                                 // compare x and y with the dish
-                                if(selectedDish.getBoundingClientRect().x - customerCurrentPosition <= 0 && selectedDish.getBoundingClientRect().y === customer.getBoundingClientRect().y){
+                                // height difference -> customer transform: translateY(-120px);
+                                const heightDifferenct =selectedDish.getBoundingClientRect().y - customer.getBoundingClientRect().y
+                                const customerSize = 145;
+
+                                if(selectedDish.getBoundingClientRect().x - customerCurrentPosition <= customerSize &&  heightDifferenct == 120){
                                     const survivedCustomers = customerArr.filter(customer => customer.customerCount !== customerArr[i].customerCount);
                                     if(customerArr.length){
                                         setCustomerArr(survivedCustomers);
@@ -179,7 +223,6 @@ const GamePlay = ({platformArr}) => {
    
     detectCollision();
 
-
     if(false){
 
         const body = {
@@ -194,6 +237,7 @@ const GamePlay = ({platformArr}) => {
         })
     }
 
+    // console.log(playerY)
 
   return (
     <>

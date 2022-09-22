@@ -2,28 +2,27 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    // background-color: midnightblue;
-    background: url('../../assets/playerDefault.gif');
     position: absolute;
     right: 100px;
+    transform: translateY(-80%);
 }
 
 @keyframes shoot {
     from{
         right: 100px;
-        // transform: translateX(-100%);
+        transform: translateX(-100%);
     }
 
     to{
         right: 100%;
-    }
+    } 
 }
 
 .dish{
     top: 40px;
     right: 100px;
     width: 50px;
-    height: 20px;
+    height: 10px;
     background-color: aqua;
     position: absolute;
     animation: shoot 4s ease infinite;
@@ -33,4 +32,5 @@
     font-size: 4rem;
     text-align: right;
     font-weight: bold;
+    color: white;
 }

@@ -1,24 +1,32 @@
 import './Login.scss';
 import { postLogin } from '../../utils/axios';
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const Login = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
+    const [isError, setIsError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
 
     const [userName, setUserName] = useState(null);
     const [password, setPassword] = useState(null);
     const navigate = useNavigate();
 
     // sign up when the form is submitted
+    useEffect(()=>{
+        console.log(userName)
+    }, [isSubmitted])
+
     const handleSubmit = (event) => {
-        setIsSubmitted(true);
+
         setUserName(event.target.userName.value);
         setPassword(event.target.password.value);
 
         event.preventDefault();
         event.target.reset();
+
+        setIsSubmitted(true);
     }
 
     useEffect(()=>{
@@ -34,12 +42,11 @@ const Login = () => {
                 setIsLoggedIn(true);
             })
             .catch(error => {
-                console.log(error);
-                alert("Failed to login");
+                setIsError(true);
+                setErrorMsg(error.response.data.message);
             })
         }
     }, [isSubmitted])
-
 
     if(isLoggedIn){
         // pass currentUser as a parameter so that GamePage can use it for auth header
@@ -48,14 +55,18 @@ const Login = () => {
 
 
   return (
-    <>
-        <form className="login" onSubmit={handleSubmit}>
-            <h1>Login</h1>
-            <label>Username: <input type="text" name="userName"/></label>
-            <label>Password: <input type="password" name="password"/></label>
-            <button>Login</button>
-        </form>
-    </>
+    <form className="login" onSubmit={(event) => {handleSubmit(event)}}>
+        <Link to="/" className="signup__back"></Link>
+        <div className="login__bg">
+            <div className="login__content">
+                <h1 className="login__title">Login</h1>
+                <label><input className="login__input" type="text" name="userName" placeholder='User name'/></label>
+                <label><input className="login__input" type="password" name="password" placeholder='Password'/></label>
+                {isError && <span className="login__error">{errorMsg}</span>}
+                <button className="login__btn">Login</button>
+            </div>
+        </div>
+    </form>
   )
 }
 

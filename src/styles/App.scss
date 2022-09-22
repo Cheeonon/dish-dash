@@ -1,3 +1,27 @@
+@use './partials/fonts' as *;
+
+*, *::after, *::before{
+    box-sizing: border-box;
+    font-family: RicksAmericanNF;
+
+}
+
 body{
     margin: 0;
+    overflow: hidden;
+}
+
+h1{
+    margin: 0;
+}
+
+ul, li{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
 }

@@ -1,6 +1,6 @@
 @use '../../styles/partials/keyframes.scss' as *;
 
-.homepage{
+.root{
     width: 100%;
     height: 100vh;
     display: flex;
@@ -9,7 +9,7 @@
     align-items: center;
 
     &__bg{
-        background: url('../../assets/background/dish-spoon-knife-.svg') no-repeat center;
+        background: url('../../assets/background/dish-black.svg') no-repeat center;
         background-size: contain;
         width: 100%;
         height: 90vh;
@@ -18,12 +18,6 @@
         justify-content: center;
         align-items: center;
         animation: pump 0.4s ease infinite alternate;
-    }
-
-
-    &__content{
-        animation: slideIn 2s ease;
-        transform: translateX(7%);
     }
 
     &__title{
@@ -46,25 +40,6 @@
         &:hover{
             transform: scale(1.15);
             color: aquamarine;
-        }
-    }
-
-    &__logout{
-        display: block;
-        color: rgb(201, 19, 19);
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        text-align: center;
-    }
-}
-
-.yes-no{
-    &:hover{
-        transform: scale(1.15);
-        cursor: pointer;
-
-        &::before{
-            content: '> ';
         }
     }
 }

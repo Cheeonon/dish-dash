@@ -22,3 +22,7 @@ export const getUserProfile = (token) => {
 export const postScores = (body) => {
     return axios.post(`${baseURL}/profiles/scores`, body);
 };
+
+export const getTopScores = () => {
+    return axios.get(`${baseURL}/profiles/topScores`);
+};
