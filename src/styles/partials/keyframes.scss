@@ -27,3 +27,32 @@
         transform: scale(0.95);
     }
 }
+
+@keyframes shoot {
+    from{
+        right: 100px;
+    }
+
+    to{
+        right: 99%;
+    } 
+}
+
+
+@keyframes customerMove {
+    from{
+        left: -0.4%;
+    }
+
+    to{
+        left: 100%;
+    }
+}
+
+@keyframes spin { 
+    from { 
+        transform: rotateY(0deg) scale(1); 
+    } to { 
+        transform: rotateY(360deg) scale(1.4); 
+    }
+}

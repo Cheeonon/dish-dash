@@ -13,11 +13,6 @@ const Login = () => {
     const [password, setPassword] = useState(null);
     const navigate = useNavigate();
 
-    // sign up when the form is submitted
-    useEffect(()=>{
-        console.log(userName)
-    }, [isSubmitted])
-
     const handleSubmit = (event) => {
 
         setUserName(event.target.userName.value);

@@ -1,0 +1,17 @@
+@use '../../styles/partials/keyframes.scss' as *;
+
+.dish-test{
+    width: 50px;
+    height: 10px;
+    background-color: aqua;
+    position: absolute;
+    transform: translateX(-100px);
+    animation: shoot 3s ease infinite;
+
+    &__food{
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        bottom: 5px;
+    }
+} 

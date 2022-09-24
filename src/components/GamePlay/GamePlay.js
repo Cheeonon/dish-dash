@@ -8,13 +8,18 @@ import playerBackgroundURL from '../../assets/player/op.gif';
 import playerBackgroundDefaultURL from '../../assets/player/dish-white.svg';
 
 import './GamePlay.scss';
+import GameOverModal from '../GameOverModal/GameOverModal';
 
-const GamePlay = ({platformArr}) => {
+const GamePlay = ({platformArr, foodArr}) => {
     const location = useLocation();
     const userProfile = location.state.userProfile;
     // console.log(userProile)
 
+    const [grabFood, setGrabFood] = useState(false);
     const [shootDish, setShootDish] = useState(false);
+    const [dishChecker, setDishChecker] = useState(false);
+    const [isGameOver, setIsGameOver] = useState(false);
+    const [currentFood, setCurrentFood] = useState(null);
 
     const [currentPlatformIndex, setCurrentPlatformIndex] = useState(0);
     const [playerY, setPlayerY] = useState(platformArr[currentPlatformIndex].platformPosition);
@@ -29,10 +34,11 @@ const GamePlay = ({platformArr}) => {
     // get unique key for each element. It always icreases
     const [customerCount, setCustomerCount] = useState(0);
     const [dishCount, setDishCount] = useState(0);
+    const [foodCount, setFoodCount] = useState(100);
 
     //  player movement
-    useEffect(() => {
-
+    useEffect(() => {   
+        
         const handleMove = (event) => {
             const lastPlatformIndex = platformArr.length - 1;
 
@@ -53,84 +59,63 @@ const GamePlay = ({platformArr}) => {
 
                 } else{
                     setCurrentPlatformIndex(lastPlatformIndex);
+                }
+            } else if(event.key === "z"){
+                if(grabFood){
+                    setShootDish(true);
+                } else{
+                    setGrabFood(true);
+                    // setCurrentFood(foodArr.filter(food => food.platformPosition === dishY))
+                    // console.log(currentPlatformIndex)
 
                 }
-            } 
-
-            // 이거 해야됨!!!
-            else if(event.key === "z"){
-                // 업데이트된 dishY로 렌더해야함
-                // setShootDish한 다음에
-                setDishY(playerY);
-                setShootDish(true);
-
-                // const newDishes = [...dishArr];
-                // setDishCount(dishCount + 1);
-                // const dishIndex = dishCount + 1
-
-                // newDishes.push({dishIndex, dishY, dishCount});
-                // setDishArr(newDishes);
-                
-                // set player background,
-                // after 3 seconds, set player background to default
-                // setPlayerBackground(playerBackground => !playerBackground);
-
-                // setTimeout(() => {
-                //     setPlayerBackground(playerBackground => !playerBackground);
-                // }, 500);
             }
         };
 
-        // set player y to current platform
         setPlayerY(platformArr[currentPlatformIndex].platformPosition);
-
-        if(shootDish){
-            const newDishes = [...dishArr];
-            setDishCount(dishCount + 1);
-            const dishIndex = dishCount + 1
-            newDishes.push({dishIndex, dishY, dishCount});
-            setDishArr(newDishes);
-            setPlayerBackground(playerBackground => !playerBackground);
-            setShootDish(false);
-        }
-
+        
         //  add eventlistener only once
         window.addEventListener("keydown", handleMove);
-
+        
         return () => {
             window.removeEventListener("keydown", handleMove);
         };
-    }, [currentPlatformIndex, dishArr]);
-
-
+    }, [currentPlatformIndex, dishArr, dishY,shootDish]);
     
 
-    // useEffect(() => {
+    useEffect(()=>{
+        setCurrentFood(foodArr.filter(food => food.platformPosition === playerY))
+    }, [grabFood])
+    
+    if(shootDish){
+        setShootDish(false);
+        setDishChecker(true);
+        setGrabFood(false);
+    }
 
-    //     const handleDish = (event) => {
+    useEffect(() => {
+        // define values for each key
+        if(dishChecker){
+            const newDishes = [...dishArr];
+            setDishY(playerY);
+            console.log(dishY)
+            setDishCount(dishCount + 1);
+            setFoodCount(foodCount + 1);
+            const dishIndex = dishCount + 1
+            // const currentFood = foodArr.filter(food => food.platformPosition === dishY)
+    
+            newDishes.push({dishIndex, dishY, dishCount, currentFood});
+            setDishArr(newDishes);
+            setPlayerBackground(playerBackground => !playerBackground);
+    
+            setTimeout(() => {
+                setPlayerBackground(playerBackground => !playerBackground);
+            }, 500);
+            setDishChecker(false);
+        }
+    }, [dishChecker]) 
 
-    //         if(event.key === "z"){
-    //             // set new dish array
-    //             const dishY = playerY
-    //             const newDishes = [...dishArr];
-    //             const dishIndex = dishCount + 1
-    //             newDishes.push({dishIndex, dishY, dishCount});
-    //             setDishArr(newDishes);
-    //             setPlayerBackground(playerBackground => !playerBackground);
-    //             setTimeout(() => {
-    //                 setPlayerBackground(playerBackground => !playerBackground);
-    //             }, 500);
-    //         }
-    //     }
-
-    //     window.addEventListener("keydown", handleDish);
-
-    //     return () => {
-    //         window.removeEventListener("keydown", handleDish);
-    //     };
-        
-    // }, [dishArr]) 
-
+    
     // new customer appears every 5 seconds
     useEffect(()=>{
         // setNewCustomer();
@@ -139,7 +124,7 @@ const GamePlay = ({platformArr}) => {
     const setNewCustomer = () => {
         setInterval(()=>{
             setCustomerCount(customerCount => customerCount + 1);
-        }, 3000);
+        }, 7000);
     }
 
     // executes code to create a customer once new customer is added to the array
@@ -156,7 +141,7 @@ const GamePlay = ({platformArr}) => {
 
 
     const detectCollision = () => {
-
+        
         // if dish array is not empty, check each dish's current position
         if(dishArr.length){
 
@@ -167,7 +152,7 @@ const GamePlay = ({platformArr}) => {
                     if(selectedDish.getBoundingClientRect().x <= 0){
                         const survivedDishes = dishArr.filter(dish => dish.dishIndex !== dishArr[i].dishIndex);
                         setDishArr(survivedDishes);
-
+                        // setIsGameOver("true");
                     }
                 }
             }
@@ -179,7 +164,7 @@ const GamePlay = ({platformArr}) => {
                 const currentCustomer = customerArr[i];
                 let customer = document.querySelector(`.customer${currentCustomer.customerCount}`);
 
-                // if reactDOM renders div.dish --> this is to avoid executing code on a variable with null
+                // if DOM renders div.dish --> this is to avoid executing code on a variable with null
                 if(customer){
                     const screen = document.querySelector(".screen");
                     const screenSize = screen.getBoundingClientRect().right - 70;
@@ -201,14 +186,13 @@ const GamePlay = ({platformArr}) => {
                                 const heightDifferenct =selectedDish.getBoundingClientRect().y - customer.getBoundingClientRect().y
                                 const customerSize = 145;
 
-                                if(selectedDish.getBoundingClientRect().x - customerCurrentPosition <= customerSize &&  heightDifferenct == 120){
+                                if(selectedDish.getBoundingClientRect().x - customerCurrentPosition <= customerSize &&  heightDifferenct === 120){
                                     const survivedCustomers = customerArr.filter(customer => customer.customerCount !== customerArr[i].customerCount);
                                     if(customerArr.length){
                                         setCustomerArr(survivedCustomers);
                                     }
                                     const survivedDishes = dishArr.filter(dish => dish.dishIndex !== dishArr[j].dishIndex);
                                     setDishArr(survivedDishes);
-
                                     setScore(score + 50);
                                 }
                             }
@@ -219,10 +203,11 @@ const GamePlay = ({platformArr}) => {
         }
 
         window.requestAnimationFrame(detectCollision);
-    }
-   
-    detectCollision();
 
+    }
+
+    detectCollision();
+    
     if(false){
 
         const body = {
@@ -237,7 +222,9 @@ const GamePlay = ({platformArr}) => {
         })
     }
 
-    // console.log(playerY)
+    if(isGameOver){
+        return <GameOverModal />
+    }
 
   return (
     <>
@@ -247,12 +234,27 @@ const GamePlay = ({platformArr}) => {
             ? {top: playerY, background: `url(${playerBackgroundURL})`}
             : {top: playerY, background: `url(${playerBackgroundDefaultURL})`}
             }
-        ></div>
-        {dishArr.map(dish => {
-            return <div key={dish.dishCount} className={`dish dish${dish.dishIndex}`} style={{top: dish.dishY}}></div>})}
+        >
+        </div>
+        {dishArr.map(dish => (
+            <>
+                
+                <div
+                    key={dish.dishCount} 
+                    className={`dish dish${dish.dishIndex}`} 
+                    style={{top: dish.dishY}}>
+                        <div 
+                            className={`dish__food dish__${dish.currentFood[0].food}`}
+                            key={dish.foodCount}>
+                        </div>
+                </div>
+            </>
+                        
+            ))}
         {customerArr.map(customer => ( <Customer key={customer.customerCount} customerCount={customer.customerCount} customerPositionY={customer.customerPositionY}/>))}
     </>
-  )
+    )
+    
 }
 
 export default GamePlay

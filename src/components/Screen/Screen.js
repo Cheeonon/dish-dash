@@ -18,7 +18,7 @@ const Screen = () => {
     // declare platforms
     const platformCount = 4;
     const platformArr = [];
-    const foodList = ["fries", "hamburger", "donut", "chicken"];
+    const foodList = ["sushi", "hamburger", "beef", "apple"];
     const foodArr = [];
 
     // variables 
@@ -38,7 +38,7 @@ const Screen = () => {
     <div className='screen'>
         {/* render platforms */}
         {platformArr.map(platform => (<Platform key = {platform.index} positionY = {platform.platformPosition}/>))}
-        <GamePlay platformArr={platformArr}/>
+        <GamePlay platformArr={platformArr} foodArr={foodArr}/>
         <div className="foods">
             {foodArr.map(food => (<Food key = {food.index} positionY = {food.platformPosition} food={food.food}/>))}
         </div>

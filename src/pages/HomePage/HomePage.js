@@ -37,7 +37,7 @@ const HomePage = () => {
     if(isStart){
       // pass currentUser as a parameter so that GamePage can use it for auth header
       navigate('/game', {state: {userProfile: userProfile}});
-  }
+    }
     return (
       <div className="homepage">
             <div className="homepage__bg">
@@ -52,7 +52,7 @@ const HomePage = () => {
                           <div className="homepage__title">DISH DASH</div>
                           <ul className="homepage__list">
                               <li onClick={()=>{setIsStart(true)}} className="homepage__item">Start</li>
-                              <Link to="/game" className="homepage__item">Upgrade</Link>
+                              <Link to="/upgrade" className="homepage__item">Upgrade</Link>
                               <Link to="/leaderboard" className="homepage__item">Leaderboard</Link>
                               <li onClick={()=>{setIsLogout(true)}} className="homepage__item">Logout</li>
                           </ul>

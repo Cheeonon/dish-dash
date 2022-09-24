@@ -1,0 +1,36 @@
+@use '../../styles/partials/keyframes.scss' as *;
+
+.customer-test{
+    width: 130px;
+    height: 130px;
+    border-radius: 50%;
+    background: url('../../assets/customer/customer-dish-white.svg') no-repeat center;
+    background-size: contain;
+    position: absolute;
+    left: 0;
+    animation: customerMove 7s linear infinite;
+    transition: all 3s;
+
+    &__gameover{
+        background: url('../../assets/customer/customer-dish-gameover.svg') no-repeat center;
+        transform: scale(1.2);
+        animation: none;
+    }
+
+    &__want{
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        top: -25px;
+        left: 39px;
+        background-color: white;
+        border-radius: 5px;
+    }
+
+    &__food{
+        width: 45px;
+        height: 45px;
+        position: absolute;
+    }
+}
+

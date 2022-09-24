@@ -1,30 +1,6 @@
-@use '../../styles/partials/keyframes.scss' as *;
-
-.platform{
-    width: 70%;
-    height: 15px;
-    background-color: black;
-    border: 3px solid white;
-    justify-self: flex-end;
+ 
+.food-test{
     position: absolute;
-    transform: translateY(100%);
-    border-radius: 3px;
-}
-
-.screen{    
-    position: relative;
-    margin: 0 auto;
-    width: 100%;
-    height: 750px;
-    background-color: black;
-    // background: url('../../assets/McDonalds-Background.jpg') center no-repeat;
-    // background-size: cover;
-
-}
-
-.food{
-    position: absolute;
-    transform: translateY(-50px);
     width: 90px;
     height: 90px;
     color: white;
@@ -50,4 +26,3 @@
         background-size: contain;
     }
 }
-

@@ -24,7 +24,7 @@ const LeaderboardPage = () => {
     const handleBack = () => {
         navigate(-1);
       };
-
+ 
     return (
         <div className="leaderboard">
             <span onClick={handleBack} className="leaderboard__back"></span>
