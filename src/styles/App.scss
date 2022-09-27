@@ -25,3 +25,10 @@ a{
     text-decoration: none;
     color: inherit;
 }
+
+.paused{
+    -webkit-animation-play-state: paused !important; 
+    -moz-animation-play-state: paused !important; 
+    -o-animation-play-state: paused !important;
+     animation-play-state: paused !important;
+}

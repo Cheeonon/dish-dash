@@ -32,7 +32,8 @@ const TestScreen = ({userProfile}) => {
     const [score, setScore] = useState(-50);
     const [miliSec, setMiliSec] = useState(0);
     const [time, setTime] = useState(0);
-    const [isTicking, setIsTicking] = useState(true);
+    const [isPaused, setIsPaused] = useState(false);
+    const [timeChecker, setTimeChecker] = useState(0);
 
     const setShootFalse = () => {
         setShootDish(false);
@@ -47,20 +48,24 @@ const TestScreen = ({userProfile}) => {
     }
 
     useEffect(() => {
-        if(isTicking){
-            tick();
-        }
+        displayTime();
     }, [])
 
     useEffect(() => {
-        if(isTicking){
+        if(!isPaused){
+            setMiliSec(miliSec => miliSec + 1)
+        }
+    }, [timeChecker])
+
+    useEffect(() => {
+        if(!isPaused){
             setTime(format(miliSec));
         }
     }, [miliSec])
 
-    const tick = () => {
+    const displayTime = () => {
         setInterval(() => {
-            setMiliSec(miliSec => miliSec + 1);
+            setTimeChecker(timeChecker => timeChecker + 1)
         }, 10)
     }
 
@@ -77,6 +82,8 @@ const TestScreen = ({userProfile}) => {
     useEffect(() => {   
         
         const handleMove = (event) => {
+            setIsPaused(false);
+
             const lastPlatformIndex = platformNum - 1;
 
             if (event.key === "ArrowUp") {
@@ -98,12 +105,12 @@ const TestScreen = ({userProfile}) => {
                     setCurrentPlatformIndex(lastPlatformIndex);
                 }
             } else if (event.key === "z"){
-
                     setShootDish(true);
             } else if (event.key === "x"){
-
                     setGrabDish(true)
                     setGrabbedFood(foodList[currentPlatformIndex])
+            } else if (event.key === " "){
+                setIsPaused(true);
             }
         };
     
@@ -123,14 +130,15 @@ const TestScreen = ({userProfile}) => {
 
     return (
         <>
+            {isPaused && <div className='screen__paused'>GAME PAUSED</div>}
             <div className="userProfile">
                     {heartsArr.map(heart => <div className="userProfile__heart"></div>)}
                     <div className="userProfile__score">💰{score}</div>
-                    {(isTicking) && <div className="userProfile__time">{time}</div>}
+                    <div className="userProfile__time">{time}</div>
             </div>
             {platformHeightArr.map((platform, index) => (<Platform key = {index} height = {platform}/>))}
             <Player platformHeightArr={platformHeightArr} currentPlatformIndex={currentPlatformIndex} grabbedFood={grabbedFood}/>
-            <DishCustomer foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} setGameOver = {setGameOver} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
+            <DishCustomer isPaused={isPaused} foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} setGameOver = {setGameOver} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
             {foodList.map((food, index) => ( <Food key = {index + 100} height={platformHeightArr[index]} food={food}/>))}
            
         </>

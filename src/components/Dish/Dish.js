@@ -1,12 +1,15 @@
 import "./Dish.scss";
 
-const Dish = ({height, dishNum, grabbedFood, foodNum}) => {
+const Dish = ({isPaused, height, dishNum, grabbedFood, foodNum}) => {
 
     return (
         // <div className={`dish-test dish${dishNum}`} style={{bottom: height}}></div>
 
         <div
-            className={`dish-test dish${dishNum}`}
+            className=
+            {(isPaused) 
+                ?`dish-test paused dish${dishNum}`
+                :`dish-test dish${dishNum}`}
             style={{ bottom: height }}
         >
             <div

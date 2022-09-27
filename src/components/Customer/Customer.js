@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import "./Customer.scss";
 
-const Customer = ({ resetStatus, height, customerNum, isGameOver, wantFood, customerStatus, customerDeadPosition, randomCustomer}) => {
+const Customer = ({ isPaused, resetStatus, height, customerNum, isGameOver, wantFood, customerStatus, customerDeadPosition, randomCustomer}) => {
     const [customerBackground, setCustomerBackground] = useState("") 
     useEffect(()=>{
       if(isGameOver){
@@ -24,8 +24,8 @@ const Customer = ({ resetStatus, height, customerNum, isGameOver, wantFood, cust
     return (
         <div
             className={
-                (customerBackground === "angry")
-                    ? `customer-test customer-test__customer-${randomCustomer+1} customer${customerNum} customer-test__gameover`
+                (customerBackground === "angry" || isPaused)
+                    ? `customer-test paused customer-test__customer-${randomCustomer+1} customer${customerNum}`
                     : `customer-test customer-test__customer-${randomCustomer+1} customer${customerNum}`
             }
             style={
