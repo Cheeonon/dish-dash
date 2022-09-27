@@ -1,17 +1,29 @@
 @use '../../styles/partials/keyframes.scss' as *;
 
 .dish-test{
-    width: 50px;
-    height: 10px;
-    background-color: aqua;
-    position: absolute;
+    // width: 50px;
+    // height: 10px;
+    // background-color: aqua;
+    // position: absolute;
+    // transform: translateX(-100px);
+    // animation: shoot 3s ease infinite;
+
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
     transform: translateX(-100px);
     animation: shoot 3s ease infinite;
+    position: absolute;
+    right: 100px;
+    // background-color: white;
+    background: url('../../assets/background/dish-white.svg');
+
 
     &__food{
-        width: 50px;
-        height: 50px;
+        width: 45px;
+        height: 45px;
         position: absolute;
-        bottom: 5px;
+        bottom: 14px;
+        left: 14px;
     }
-} 
+}  

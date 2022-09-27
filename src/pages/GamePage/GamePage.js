@@ -14,7 +14,7 @@ const GamePage = () => {
     // <div className="game-page">
       <div className="game-page-test">
       {/* <Screen /> */}
-      <TestScreen />
+      <TestScreen userProfile={userProfile}/>
     </div>
   )
 }

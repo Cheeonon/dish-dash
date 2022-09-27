@@ -31,6 +31,10 @@ const HomePage = () => {
       navigate('/', {state: {userProfile: userProfile}});
     }
 
+    const handleUpgrade = () => {
+      navigate('/upgrade', {state: {userProfile: userProfile}});
+    }
+
     if(!isHomePage || !userProfile) {
       return <h1>Loading...</h1>
     } 
@@ -52,7 +56,7 @@ const HomePage = () => {
                           <div className="homepage__title">DISH DASH</div>
                           <ul className="homepage__list">
                               <li onClick={()=>{setIsStart(true)}} className="homepage__item">Start</li>
-                              <Link to="/upgrade" className="homepage__item">Upgrade</Link>
+                              <li onClick={handleUpgrade} className="homepage__item">Upgrade</li>
                               <Link to="/leaderboard" className="homepage__item">Leaderboard</Link>
                               <li onClick={()=>{setIsLogout(true)}} className="homepage__item">Logout</li>
                           </ul>

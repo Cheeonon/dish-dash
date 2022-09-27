@@ -2,14 +2,29 @@
 
 .customer-test{
     width: 130px;
-    height: 130px;
+    height: 90px;
     border-radius: 50%;
-    background: url('../../assets/customer/customer-dish-white.svg') no-repeat center;
     background-size: contain;
     position: absolute;
     left: 0;
     animation: customerMove 7s linear infinite;
-    transition: all 3s;
+    transition: all 1.5s;
+
+
+    &__customer{
+        &-1{
+            background: url('../../assets/customer/customer1.svg') no-repeat center;
+        }
+        &-2{
+            background: url('../../assets/customer/customer2.svg') no-repeat center;
+        }
+        &-3{
+            background: url('../../assets/customer/customer3.svg') no-repeat center;
+        }
+        &-4{
+            background: url('../../assets/customer/customer4.svg') no-repeat center;
+        }
+    }
 
     &__gameover{
         background: url('../../assets/customer/customer-dish-gameover.svg') no-repeat center;
@@ -21,7 +36,7 @@
         width: 50px;
         height: 50px;
         position: absolute;
-        top: -25px;
+        top: -60px;
         left: 39px;
         background-color: white;
         border-radius: 5px;
@@ -31,6 +46,14 @@
         width: 45px;
         height: 45px;
         position: absolute;
+        left: 3px;
+    }
+
+    &__happy{
+        width: 45px;
+        height: 45px;
+        position: absolute;
+        background: url('../../assets/icons/heart.png') no-repeat center;
     }
 }
 

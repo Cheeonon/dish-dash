@@ -1,9 +1,9 @@
-import { Children, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TestCustomer from '../TestCustomer/TestCustomer';
 import TestDish from '../TestDish/TestDish';
 import './TestDishCustomer.scss';
 
-const TestDishCustomer = ({foodList, platformHeightArr, grabbedFood, shootDish, setShootFalse, currentPlatformIndex, setGameOver, isGameOver}) => {
+const TestDishCustomer = ({handleScore, foodList, platformHeightArr, grabbedFood, shootDish, setShootFalse, currentPlatformIndex, setGameOver, isGameOver}) => {
 
     const [dishArr, setDishArr] = useState([]);
     const [dishNum, setDishNum] = useState(300);
@@ -37,7 +37,7 @@ const TestDishCustomer = ({foodList, platformHeightArr, grabbedFood, shootDish, 
     const setNewCustomer = () => {
         setInterval(()=>{
             setCustomerNum(customerNum => customerNum + 1);
-        }, 7000);
+        }, 1000);
     }
 
     // executes code to create a customer once new customer is added to the array
@@ -45,11 +45,12 @@ const TestDishCustomer = ({foodList, platformHeightArr, grabbedFood, shootDish, 
         const newCustomerArr = [...customerArr]
         const randomIndex = Math.floor(Math.random() *  platformHeightArr.length);
         const randomIndexForFood = Math.floor(Math.random() *  platformHeightArr.length);
+        const randomCustomer = Math.floor(Math.random() *  platformHeightArr.length);
         const randomFood = foodList[randomIndexForFood];
         const height = platformHeightArr[randomIndex];
         setWantFood(randomFood)
 
-        newCustomerArr.push({customerNum, height, wantFood});
+        newCustomerArr.push({customerNum, height, wantFood, randomCustomer});
         setCustomerArr(newCustomerArr);
     }, [customerNum])
 
@@ -61,6 +62,28 @@ const TestDishCustomer = ({foodList, platformHeightArr, grabbedFood, shootDish, 
     const [customerDeadPosition, setCustomerDeadPosition] = useState(null);
 
  setInterval(() => {
+
+        // customer collision
+        if(customerArr.length){
+            for(let j = 0; j < customerArr.length; j++){
+
+                const customer = document.querySelector(`.customer${customerArr[j].customerNum}`);
+                const platform = document.querySelector(".test-platform");
+
+                if(customer){
+                    const customerPosition = customer.getBoundingClientRect().x;
+                    const platformPosition = platform.getBoundingClientRect().right;
+
+                    if(platformPosition - customerPosition <= 30){
+                        setCollideCustomerIndex(customerArr[j].customerNum);
+                        setCheckWantFood(customerArr[j].wantFood);
+                        setCustomerDeadPosition(customerPosition);
+                        setIsNewArr(true);
+                    }
+                }
+            }
+        }
+
         // dish collision
         if(dishArr.length){
 
@@ -71,16 +94,32 @@ const TestDishCustomer = ({foodList, platformHeightArr, grabbedFood, shootDish, 
 
                     // if dish is at the end of the screen
                     if(dishPosition < 0){
-                        // setGameOver();
+                        setGameOver();
                     }
 
-                    // customer collision
+                    // dish & customer collision
                     if(customerArr.length){
                         for(let j = 0; j < customerArr.length; j++){
 
                             const customer = document.querySelector(`.customer${customerArr[j].customerNum}`);
+                            const platform = document.querySelector(".test-platform");
+
                             if(customer){
                                 const customerPosition = customer.getBoundingClientRect().x;
+                                const platformPosition = platform.getBoundingClientRect().right;
+
+
+                                // console.log(customerPosition, "customer");
+                                // console.log(platformPosition, "platform");
+
+                                if(platformPosition - customerPosition <= 30){
+                                    // setCollideDishIndex(dishArr[i].dishNum);
+                                    // setCollideCustomerIndex(customerArr[j].customerNum);
+                                    // setCheckGrabbedFood(dishArr[i].grabbedFood);
+                                    // setCheckWantFood(customerArr[j].wantFood);
+                                    // setCustomerDeadPosition(customerPosition);
+                                    // setIsNewArr(true);
+                                }
                                 
                                 if (dishPosition - customerPosition <= 80 && dishArr[i].height === customerArr[j].height) {
 
@@ -101,24 +140,27 @@ const TestDishCustomer = ({foodList, platformHeightArr, grabbedFood, shootDish, 
         
     }, 100);
 
-    console.log(customerDeadPosition)
 
     const [customerStatus, setCustomerStatus] = useState("");
+    const resetStatus = () => {
+        setCustomerStatus("")
+    }
 
     // set new array with survived customers/dishes
     useEffect(()=>{
-        
+        // console.log(checkWantFood, checkGrabbedFood)
 
         if(checkWantFood !== checkGrabbedFood){
-            console.log("gameOver")
-            setCustomerStatus("angry")
+            // setCustomerStatus("angry")
+            setGameOver();
         } else{
             const survivedCustomers = customerArr.filter((customer) => customer.customerNum !== collideCustomerIndex);
             const survivedDishes = dishArr.filter((dish) => dish.dishNum !== collideDishIndex);
             
-            setCustomerStatus("happy")
+            // setCustomerStatus("happy")
             setCustomerArr(survivedCustomers);
             setDishArr(survivedDishes);
+            handleScore();
         }
     
         setIsNewArr(false);
@@ -131,7 +173,7 @@ const TestDishCustomer = ({foodList, platformHeightArr, grabbedFood, shootDish, 
     return (
         <>
             {dishArr.map(dish => (<TestDish key={dish.dishNum} height={dish.height} dishNum = {dish.dishNum} setGameOver={setGameOver} grabbedFood={dish.grabbedFood} foodNum={foodNum}/>))} 
-            {customerArr.map(customer => ( <TestCustomer key={customer.customerNum} customerStatus={customerStatus} height={customer.height} customerNum = {customer.customerNum} setGameOver={setGameOver} isGameOver={isGameOver} wantFood={customer.wantFood} customerDeadPosition={customerDeadPosition}/>))}
+            {customerArr.map(customer => ( <TestCustomer key={customer.customerNum} resetStatus = {resetStatus} customerStatus={customerStatus} height={customer.height} customerNum = {customer.customerNum} setGameOver={setGameOver} isGameOver={isGameOver} wantFood={customer.wantFood} customerDeadPosition={customerDeadPosition} randomCustomer={customer.randomCustomer}/>))}
         </>
     )
 }

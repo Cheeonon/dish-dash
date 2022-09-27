@@ -10,11 +10,11 @@ const TestDish = ({height, dishNum, grabbedFood, foodNum}) => {
             style={{ bottom: height }}
         >
             <div
-                className={`dish-test__food dish__${grabbedFood}`}
+                className={`dish-test__food food-test__${grabbedFood}`}
                 key={foodNum}
             ></div>
         </div>
     );
-};
+}; 
 
 export default TestDish;

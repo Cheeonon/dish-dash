@@ -6,11 +6,23 @@
       left: 0;
       top: 0;
       z-index: 1;
-      background-color: rgba(0, 0, 0, 0.344);
+      background: url("../../assets/background/brokenPlate.svg") no-repeat center ;
+      background-size: cover;
       display: flex;
       justify-content: center;
       align-items: center;
       transition: background-color 1s ease;
+
+      &:before {
+            content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                background-image: linear-gradient(to bottom right,#000000,#000000);
+                opacity: .7; 
+      }
 
       &__content{
             display: flex;
@@ -21,6 +33,7 @@
             border-radius: 10px;
             padding: 2rem;
             animation: appear 2s forwards;
+            box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.608);
       }
 
       @keyframes appear {
@@ -35,35 +48,36 @@
             
       }
 
-      &__text{
-            font-size: 1.5rem;
-            padding: 2rem;
-            font-weight: bold;
+      &__title{
+            font-size: 2.2rem;
+            margin: 2rem;
+            color: brown;
       }
 
       &__buttons{
             display: flex;
-            flex-direction: column;
             width: 100%;
       }
 
       &__button{
-            font-size: 1rem;
+            font-size: 1.2rem;
             text-align: center;
             border-radius: 10px;
             padding: 1rem;
-            margin: 0.2rem 0;
+            margin: 0.5rem;
             border: none;
-            box-shadow: inset 0px 0px 15px 2px rgba(40, 40, 40, 0.145);
+            background: none;
 
             &--primary{
-                  background: blue;
-                  color: white;
             }
 
             &--white{
-                  background: white;
-                  color: blue;
+            }
+
+            &:hover{
+                  transform: scale(1.2);
+                  border-bottom: 2px solid black;
+                  color: rgb(21, 134, 134);
             }
       }
 

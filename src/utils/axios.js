@@ -26,3 +26,7 @@ export const postScores = (body) => {
 export const getTopScores = () => {
     return axios.get(`${baseURL}/profiles/topScores`);
 };
+
+export const updateHearts = (body) => {
+    return axios.get(`${baseURL}/update/heart`, body);
+};

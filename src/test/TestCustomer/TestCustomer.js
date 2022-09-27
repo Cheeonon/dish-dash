@@ -1,39 +1,49 @@
 import { useEffect, useState } from "react";
 import "./TestCustomer.scss";
 
-const TestCustomer = ({ height, customerNum, isGameOver, wantFood, customerStatus, customerDeadPosition}) => {
+const TestCustomer = ({ resetStatus, height, customerNum, isGameOver, wantFood, customerStatus, customerDeadPosition, randomCustomer}) => {
+    const [customerBackground, setCustomerBackground] = useState("") 
     useEffect(()=>{
       if(isGameOver){
 
       }
     }, [isGameOver])
 
-    if(customerStatus === "angry"){
-      // console.log("customer angry")
-    } else if (customerStatus === "happy"){
-      // console.log("customer happy");
-    }
-
+    useEffect(()=>{
+      if(customerStatus === "angry"){
+        setCustomerBackground("angry");
+        resetStatus();
+      } else if (customerStatus === "happy"){
+        setCustomerBackground("happy");
+        resetStatus()
+      }
+    }, [customerBackground])
+    
+    // console.log(wantFood)
  
     return (
         <div
             className={
-                (customerStatus === "angry")
-                    ? `customer-test customer${customerNum} customer-test__gameover`
-                    : `customer-test customer${customerNum}`
+                (customerBackground === "angry")
+                    ? `customer-test customer-test__customer-${randomCustomer+1} customer${customerNum} customer-test__gameover`
+                    : `customer-test customer-test__customer-${randomCustomer+1} customer${customerNum}`
             }
             style={
-              (customerStatus === "angry")
+              (customerBackground === "angry")
                     ? { bottom: height, left: customerDeadPosition}
                     : { bottom: height}
             }
         >
           <div className={
-            (customerStatus === "angry")
+            (customerBackground === "angry")
               ? ""
               : "customer-test__want"
             }>
-            <div className={`customer-test__food food-test__${wantFood}`}>
+            <div className={
+              (customerBackground === "happy")
+              ? `customer-test__food  food-test__${wantFood} food-test__happy`
+              : `customer-test__food food-test__${wantFood}`
+              }>
               
             </div>
         </div>

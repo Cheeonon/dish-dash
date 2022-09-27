@@ -27,9 +27,11 @@ const Login = () => {
     useEffect(()=>{
         if(isSubmitted){
             // send post request
+
             postLogin({
                 userName: userName,
                 password: password
+                
             })
             .then(resolve => {
                 const tokenLocation =  `token${userName}`;

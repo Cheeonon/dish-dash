@@ -12,7 +12,7 @@ import GameOverModal from '../GameOverModal/GameOverModal';
 
 const GamePlay = ({platformArr, foodArr}) => {
     const location = useLocation();
-    const userProfile = location.state.userProfile;
+    const userProfile = location.state.userProfile; 
     // console.log(userProile)
 
     const [grabFood, setGrabFood] = useState(false);

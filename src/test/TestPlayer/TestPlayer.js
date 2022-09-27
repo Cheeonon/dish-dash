@@ -16,4 +16,4 @@ const TestPlayer = ({platformHeightArr, currentPlatformIndex, grabbedFood}) => {
   )
 }
 
-export default TestPlayer
+export default TestPlayer 

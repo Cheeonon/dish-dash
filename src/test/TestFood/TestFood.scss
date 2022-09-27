@@ -1,28 +1,28 @@
  
 .food-test{
     position: absolute;
-    width: 90px;
-    height: 90px;
+    width: 60px;
+    height: 60px;
     color: white;
     right: 10px;
 
-    &__sushi{
-        background: url('../../assets/foods/sushi.svg') no-repeat center;
+    &__masago{
+        background: url('../../assets/foods/masago.svg') no-repeat center;
         background-size: contain;
     }
     
-    &__hamburger{
-        background: url('../../assets/foods/hamburger.svg') no-repeat center;
+    &__shirimp{
+        background: url('../../assets/foods/shirimp.svg') no-repeat center;
         background-size: contain;
     }
     
-    &__beef{
-        background: url('../../assets/foods/beef.svg') no-repeat center;
+    &__egg{
+        background: url('../../assets/foods/egg.svg') no-repeat center;
         background-size: contain;
     }
     
-    &__apple{
-        background: url('../../assets/foods/apple.svg') no-repeat center;
+    &__salmon{
+        background: url('../../assets/foods/salmon.svg') no-repeat center;
         background-size: contain;
     }
 }
