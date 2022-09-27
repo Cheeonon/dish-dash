@@ -1,49 +1,148 @@
-import GamePlay from '../GamePlay/GamePlay';
+import { useEffect, useState } from 'react';
+import DishCustomer from '../DishCustomer/DishCustomer';
+import Food from '../Food/Food';
+import Platform from '../Platform/Platform';
+import Player from '../Player/Player';
+import GameOverModal from '../GameOverModal/GameOverModal';
+
 import './Screen.scss';
 
-// render each platform
-function Platform ({positionY}){
-    return(
-        <div className="platform" style={{top: positionY}}></div>
-    )
-}
-
-function Food ({positionY, food}){
-    return(
-        <div className={`food food__${food}`} style={{top: positionY}}></div>
-    )
-}
-
-const Screen = () => {
-    // declare platforms
-    const platformCount = 4;
-    const platformArr = [];
-    const foodList = ["sushi", "hamburger", "beef", "apple"];
-    const foodArr = [];
-
-    // variables 
+const TestScreen = ({userProfile}) => {
+    // platform
+    const [currentPlatformIndex, setCurrentPlatformIndex] = useState(0);
+    const platformNum = 4;
+    const platformHeightArr = []
     const screenHeight = 750;
-    const platformHeight = 70;
-
-    // calculate position for each platform and make it as an array
-    for(let i = 1; i <= platformCount; i++){
-        const height = (screenHeight - platformHeight) / platformCount;
-        const platformPosition = height * i;
-
-        platformArr.push({index: i, platformPosition});
-        foodArr.push({index: i - 1, platformPosition,  food: foodList[i - 1]});
+    // get height for each platform
+    for(let i = 0; i < platformNum; i++){
+        platformHeightArr.push(screenHeight / platformNum * i + 100); 
     }
 
-  return (
-    <div className='screen'>
-        {/* render platforms */}
-        {platformArr.map(platform => (<Platform key = {platform.index} positionY = {platform.platformPosition}/>))}
-        <GamePlay platformArr={platformArr} foodArr={foodArr}/>
-        <div className="foods">
-            {foodArr.map(food => (<Food key = {food.index} positionY = {food.platformPosition} food={food.food}/>))}
-        </div>
-    </div>
-  )
+    const heartsArr = []
+    for(let i = 0; i < userProfile.hearts; i++){
+        heartsArr.push(i);
+    } 
+
+    const foodList = ["egg", "masago", "salmon", "shirimp"];
+    const [grabbedFood, setGrabbedFood] = useState(null);
+    const [grabDish, setGrabDish] = useState(false);
+    const [shootDish, setShootDish] = useState(false);
+    
+    const [isGameOver, setIsGameOver] = useState(false);
+    const [score, setScore] = useState(-50);
+    const [miliSec, setMiliSec] = useState(0);
+    const [time, setTime] = useState(0);
+    const [isTicking, setIsTicking] = useState(true);
+
+    const setShootFalse = () => {
+        setShootDish(false);
+    }
+
+    const setGameOver = () => {
+        setIsGameOver(true);
+    }
+
+    const handleScore = () => {
+        setScore(score + 50)
+    }
+
+    useEffect(() => {
+        if(isTicking){
+            tick();
+        }
+    }, [])
+
+    useEffect(() => {
+        if(isTicking){
+            setTime(format(miliSec));
+        }
+    }, [miliSec])
+
+    const tick = () => {
+        setInterval(() => {
+            setMiliSec(miliSec => miliSec + 1);
+        }, 10)
+    }
+
+    const format = (miliSec) => {
+        const mm = Math.floor(miliSec / 6000) % 60
+        const ss = Math.floor(miliSec / 100) % 60
+        const ms = miliSec % 100
+
+        
+        return `${mm<10?'0'+mm:mm}:${ss<10?'0'+ss:ss}:${ms<10?'0'+ms:ms}`
+    }
+
+    //  player movement
+    useEffect(() => {   
+        
+        const handleMove = (event) => {
+            const lastPlatformIndex = platformNum - 1;
+
+            if (event.key === "ArrowUp") {
+
+                // plus one index of platform
+                if (currentPlatformIndex < lastPlatformIndex) {
+                    setCurrentPlatformIndex(currentPlatformIndex + 1);
+                } else{
+                    setCurrentPlatformIndex(0);
+                }    
+            } 
+            else if (event.key === "ArrowDown"){
+
+                // minus one index of platform
+                if(currentPlatformIndex > 0){
+                    setCurrentPlatformIndex(currentPlatformIndex - 1);
+
+                } else{
+                    setCurrentPlatformIndex(lastPlatformIndex);
+                }
+            } else if (event.key === "z"){
+
+                    setShootDish(true);
+            } else if (event.key === "x"){
+
+                    setGrabDish(true)
+                    setGrabbedFood(foodList[currentPlatformIndex])
+            }
+        };
+    
+        //  add eventlistener only once
+        window.addEventListener("keydown", handleMove);
+        
+        return () => {
+            window.removeEventListener("keydown", handleMove);
+        };
+    }, [currentPlatformIndex]);
+
+
+    
+    if(isGameOver){
+        return <GameOverModal userProfile={userProfile} score={score} time={time}/>
+    } 
+
+    return (
+        <>
+            <div className="userProfile">
+                    {heartsArr.map(heart => <div className="userProfile__heart"></div>)}
+                    <div className="userProfile__score">💰{score}</div>
+                    {(isTicking) && <div className="userProfile__time">{time}</div>}
+            </div>
+            {platformHeightArr.map((platform, index) => (<Platform key = {index} height = {platform}/>))}
+            <Player platformHeightArr={platformHeightArr} currentPlatformIndex={currentPlatformIndex} grabbedFood={grabbedFood}/>
+            <DishCustomer foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} setGameOver = {setGameOver} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
+            {foodList.map((food, index) => ( <Food key = {index + 100} height={platformHeightArr[index]} food={food}/>))}
+           
+        </>
+    )
+    
 }
 
-export default Screen
+export default TestScreen
+
+// indice
+// platform 1-4
+// food 100~
+// dish 200~
+// customer 300~
+// grabbedFood 400~

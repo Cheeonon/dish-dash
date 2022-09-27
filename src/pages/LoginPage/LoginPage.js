@@ -1,9 +1,9 @@
-import './Login.scss';
+import './LoginPage.scss';
 import { postLogin } from '../../utils/axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-const Login = () => {
+const LoginPage = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -67,4 +67,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginPage

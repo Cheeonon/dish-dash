@@ -1,6 +1,6 @@
-import './TestPlatform.scss';
+import './Platform.scss';
 
-function TestPlatform ({height}){
+function Platform ({height}){
     return(
         <div 
             className="test-platform" 
@@ -8,4 +8,4 @@ function TestPlatform ({height}){
         </div>
     )
 }
-export default TestPlatform
+export default Platform

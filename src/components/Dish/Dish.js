@@ -1,6 +1,6 @@
-import "./TestDish.scss";
+import "./Dish.scss";
 
-const TestDish = ({height, dishNum, grabbedFood, foodNum}) => {
+const Dish = ({height, dishNum, grabbedFood, foodNum}) => {
 
     return (
         // <div className={`dish-test dish${dishNum}`} style={{bottom: height}}></div>
@@ -17,4 +17,4 @@ const TestDish = ({height, dishNum, grabbedFood, foodNum}) => {
     );
 }; 
 
-export default TestDish;
+export default Dish;

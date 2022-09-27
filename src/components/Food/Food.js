@@ -1,9 +1,9 @@
-import './TestFood.scss';
+import './Food.scss';
 
-const TestFood = ({height, food}) => {
+const Food = ({height, food}) => {
   return (
     <div className={`food-test food-test__${food}`} style={{bottom: height}}></div>
   )
 }
 
-export default TestFood
+export default Food

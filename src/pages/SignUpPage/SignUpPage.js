@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import './SignUp.scss';
+import './SignUpPage.scss';
 import { postSignUp } from '../../utils/axios';
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
-const SignUp = () => {
+const SignUpPage = () => {
     const [isSignedUp, setIsSignedUp] = useState(false);
     const [isError, setIsError] = useState(false);
     const [errorMsg, setErrorMsg] = useState("");
@@ -55,4 +55,4 @@ const SignUp = () => {
     )
 }
 
-export default SignUp
+export default SignUpPage

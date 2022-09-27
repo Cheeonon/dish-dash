@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import TestCustomer from '../TestCustomer/TestCustomer';
-import TestDish from '../TestDish/TestDish';
-import './TestDishCustomer.scss';
+import Customer from '../Customer/Customer';
+import Dish from '../Dish/Dish';
+import './DishCustomer.scss';
 
-const TestDishCustomer = ({handleScore, foodList, platformHeightArr, grabbedFood, shootDish, setShootFalse, currentPlatformIndex, setGameOver, isGameOver}) => {
+const DishCustomer = ({handleScore, foodList, platformHeightArr, grabbedFood, shootDish, setShootFalse, currentPlatformIndex, setGameOver, isGameOver}) => {
 
     const [dishArr, setDishArr] = useState([]);
     const [dishNum, setDishNum] = useState(300);
@@ -107,19 +107,6 @@ const TestDishCustomer = ({handleScore, foodList, platformHeightArr, grabbedFood
                             if(customer){
                                 const customerPosition = customer.getBoundingClientRect().x;
                                 const platformPosition = platform.getBoundingClientRect().right;
-
-
-                                // console.log(customerPosition, "customer");
-                                // console.log(platformPosition, "platform");
-
-                                if(platformPosition - customerPosition <= 30){
-                                    // setCollideDishIndex(dishArr[i].dishNum);
-                                    // setCollideCustomerIndex(customerArr[j].customerNum);
-                                    // setCheckGrabbedFood(dishArr[i].grabbedFood);
-                                    // setCheckWantFood(customerArr[j].wantFood);
-                                    // setCustomerDeadPosition(customerPosition);
-                                    // setIsNewArr(true);
-                                }
                                 
                                 if (dishPosition - customerPosition <= 80 && dishArr[i].height === customerArr[j].height) {
 
@@ -172,10 +159,10 @@ const TestDishCustomer = ({handleScore, foodList, platformHeightArr, grabbedFood
 
     return (
         <>
-            {dishArr.map(dish => (<TestDish key={dish.dishNum} height={dish.height} dishNum = {dish.dishNum} setGameOver={setGameOver} grabbedFood={dish.grabbedFood} foodNum={foodNum}/>))} 
-            {customerArr.map(customer => ( <TestCustomer key={customer.customerNum} resetStatus = {resetStatus} customerStatus={customerStatus} height={customer.height} customerNum = {customer.customerNum} setGameOver={setGameOver} isGameOver={isGameOver} wantFood={customer.wantFood} customerDeadPosition={customerDeadPosition} randomCustomer={customer.randomCustomer}/>))}
+            {dishArr.map(dish => (<Dish key={dish.dishNum} height={dish.height} dishNum = {dish.dishNum} setGameOver={setGameOver} grabbedFood={dish.grabbedFood} foodNum={foodNum}/>))} 
+            {customerArr.map(customer => ( <Customer key={customer.customerNum} resetStatus = {resetStatus} customerStatus={customerStatus} height={customer.height} customerNum = {customer.customerNum} setGameOver={setGameOver} isGameOver={isGameOver} wantFood={customer.wantFood} customerDeadPosition={customerDeadPosition} randomCustomer={customer.randomCustomer}/>))}
         </>
     )
 }
 
-export default TestDishCustomer
+export default DishCustomer

@@ -1,6 +1,6 @@
-import './TestPlayer.scss';
+import './Player.scss';
 
-const TestPlayer = ({platformHeightArr, currentPlatformIndex, grabbedFood}) => {
+const Player = ({platformHeightArr, currentPlatformIndex, grabbedFood}) => {
 
 
   return (
@@ -16,4 +16,4 @@ const TestPlayer = ({platformHeightArr, currentPlatformIndex, grabbedFood}) => {
   )
 }
 
-export default TestPlayer 
+export default Player 

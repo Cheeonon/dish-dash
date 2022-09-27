@@ -1,7 +1,6 @@
 
 import { useLocation } from 'react-router-dom';
 import Screen from '../../components/Screen/Screen';
-import TestScreen from '../../test/TestScreen/TestScreen';
 import './GamePage.scss';
 
 const GamePage = () => {
@@ -11,10 +10,8 @@ const GamePage = () => {
 
 
   return(
-    // <div className="game-page">
-      <div className="game-page-test">
-      {/* <Screen /> */}
-      <TestScreen userProfile={userProfile}/>
+    <div className="game-page-test">
+        <Screen userProfile={userProfile}/>
     </div>
   )
 }
