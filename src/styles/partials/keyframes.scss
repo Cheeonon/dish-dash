@@ -10,7 +10,7 @@
 
 @keyframes pump {
     from{
-        transform: scale(1.01);
+        transform: scale(1.007);
     }
 
     to{
@@ -20,11 +20,11 @@
 
 @keyframes foodPump {
     from{
-        transform: scale(1.05);
+        transform: scale(0.999);
     }
 
     to{
-        transform: scale(0.95);
+        transform: scale(1.01);
     }
 }
 

@@ -111,7 +111,8 @@ const DishCustomer = ({isPaused, handleScore, foodList, platformHeightArr, grabb
                                 const customerPosition = customer.getBoundingClientRect().x;
                                 
                                 if (dishPosition - customerPosition <= 80 && dishArr[i].height === customerArr[j].height) {
-
+                                    customerArr[j].status = "happy";
+                                    
                                     setCollideDishIndex(dishArr[i].dishNum);
                                     setCollideCustomerIndex(customerArr[j].customerNum);
                                     setCheckGrabbedFood(dishArr[i].grabbedFood);
@@ -127,42 +128,70 @@ const DishCustomer = ({isPaused, handleScore, foodList, platformHeightArr, grabb
         }
 
         
-    }, 100);
+    }, 100); 
 
-
-    const [customerStatus, setCustomerStatus] = useState("");
-    const resetStatus = () => {
-        setCustomerStatus("")
-    }
 
     // set new array with survived customers/dishes
     useEffect(()=>{
-        // console.log(checkWantFood, checkGrabbedFood)
+        if(!customerArr){
+            return;
+        }
 
+        const targetCustomer = customerArr.filter((customer) => customer.customerNum === collideCustomerIndex);
+        
         if(checkWantFood !== checkGrabbedFood){
-            // setCustomerStatus("angry")
-            setGameOver();
-        } else{
-            const survivedCustomers = customerArr.filter((customer) => customer.customerNum !== collideCustomerIndex);
             const survivedDishes = dishArr.filter((dish) => dish.dishNum !== collideDishIndex);
-            
-            // setCustomerStatus("happy")
-            setCustomerArr(survivedCustomers);
+
+            customerArr.forEach((customer) => {
+                if(customer.customerNum === targetCustomer[0].customerNum){
+                    customer.status = "angry";
+                }
+            })
+
+            setCustomerArr(customerArr);
+            setDishArr(survivedDishes);
+
+            setTimeout(()=>{
+                setGameOver();
+            }, 1000)
+
+        } else{
+            // const survivedCustomers = customerArr.filter((customer) => customer.customerNum !== collideCustomerIndex);
+            const survivedDishes = dishArr.filter((dish) => dish.dishNum !== collideDishIndex);
+
+            customerArr.forEach((customer) => {
+                if(customer.customerNum === targetCustomer[0].customerNum){
+                    customer.status = "happy";
+                }
+            })
+
+            // setCustomerArr(survivedCustomers);
+            setCustomerArr(customerArr);
             setDishArr(survivedDishes);
             handleScore();
+
         }
-    
-        setIsNewArr(false);
         
+        setIsNewArr(false);
+
     }, [isNewArr])
 
-    
+    const [remove, setRemove] = useState(false);
 
+    const removeCustomer = () => {
+        setRemove(!remove);
+    }
+
+    useEffect(()=>{
+        const survivedCustomers = customerArr.filter((customer) => customer.customerNum !== collideCustomerIndex);
+        setCustomerArr(survivedCustomers);
+    }, [remove])
+        
 
     return (
         <>
             {dishArr.map(dish => (<Dish key={dish.dishNum} isPaused={isPaused} height={dish.height} dishNum = {dish.dishNum} setGameOver={setGameOver} grabbedFood={dish.grabbedFood} foodNum={foodNum}/>))} 
-            {customerArr.map(customer => ( <Customer key={customer.customerNum} isPaused={isPaused} resetStatus = {resetStatus} customerStatus={customerStatus} height={customer.height} customerNum = {customer.customerNum} setGameOver={setGameOver} isGameOver={isGameOver} wantFood={customer.wantFood} customerDeadPosition={customerDeadPosition} randomCustomer={customer.randomCustomer}/>))}
+            {customerArr.map(customer => ( <Customer removeCustomer = {removeCustomer} key={customer.customerNum} isPaused={isPaused} height={customer.height} customerNum = {customer.customerNum} setGameOver={setGameOver} isGameOver={isGameOver} wantFood={customer.wantFood} customerDeadPosition={customerDeadPosition} randomCustomer={customer.randomCustomer} status={customer.status}/>))}
         </>
     )
 }

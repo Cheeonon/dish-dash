@@ -26,7 +26,7 @@ const GameOverModal = ({userProfile, score, time}) => {
             <div className="upload-modal">
                 <div className="upload-modal__content">
                     <div className="upload-modal__title">
-                        You Died!
+                        Customer was unhappy with the service.
                     </div>
                     <div className="upload-modal__buttons">
                         <button
@@ -39,7 +39,7 @@ const GameOverModal = ({userProfile, score, time}) => {
                             onClick={() => navigate(0)}
                             className="upload-modal__button upload-modal__button--white"
                         >
-                            Restart
+                            Play again
                         </li>
                     </div>
                 </div>
