@@ -7,7 +7,7 @@ import GameOverModal from '../GameOverModal/GameOverModal';
 
 import './Screen.scss';
 
-const TestScreen = ({userProfile}) => {
+const TestScreen = ({userProfile, difficulty}) => {
     // platform
     const [currentPlatformIndex, setCurrentPlatformIndex] = useState(0);
     const platformNum = 4;
@@ -138,7 +138,7 @@ const TestScreen = ({userProfile}) => {
             </div>
             {platformHeightArr.map((platform, index) => (<Platform key = {index} height = {platform}/>))}
             <Player platformHeightArr={platformHeightArr} currentPlatformIndex={currentPlatformIndex} grabbedFood={grabbedFood}/>
-            <DishCustomer isPaused={isPaused} foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} setGameOver = {setGameOver} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
+            <DishCustomer difficulty={difficulty} isPaused={isPaused} foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} setGameOver = {setGameOver} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
             {foodList.map((food, index) => ( <Food key = {index + 100} height={platformHeightArr[index]} food={food}/>))}
            
         </>

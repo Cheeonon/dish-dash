@@ -34,9 +34,15 @@ const UpgradePage = () => {
     return (
         <div className='upgrade'>
             <span onClick={handleBack} className="upgrade__back"></span>
-            {/* (hoverDesc === "dish" ? <div className="upgrade__desc"></div>)
-            (hoverDesc === "heart" ? <div className="upgrade__desc"></div>)
-            (hoverDesc === "DD" ? <div className="upgrade__desc"></div>) */}
+            {hoverDesc === "dish" && <div className="upgrade__desc">
+                *Add one dish. <br/> <br/> You can deliver two dishes at one time. 
+            </div>}
+            {hoverDesc === "heart" && <div className="upgrade__desc">
+                *Add one heart. <br/> <br/> You can serve customer longer. 
+            </div>}
+            {hoverDesc === "DD" && <div className="upgrade__desc">
+                *Double the money you are earning. 
+            </div>}
             <div className="upgrade__bg">
                 <div className="upgrade__content">
                     <div className="upgrade__item upgrade__item--dish" onMouseOver={handleDishDesc}></div>

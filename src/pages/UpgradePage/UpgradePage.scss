@@ -7,6 +7,15 @@
         height: 100vh;
         animation: pump 0.4s ease infinite alternate;
     }
+
+    &__desc{
+        position: absolute;
+        top: 25%;
+        left: calc(50% - 12rem);
+        z-index: 1;
+        color: white;
+        font-size: 1.3rem;
+    }
    
     &__back{
         background: url('../../assets/icons/arrow-left-solid-black.svg') no-repeat center;

@@ -2,9 +2,18 @@ import './Instruction.scss';
 import servingURL from '../../assets/instruction/serving.png';
 import patienceURL from '../../assets/instruction/patience.png';
 import brokenPlateURL from '../../assets/instruction/brokenPlate.png';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 
-const Instruction = ({displayScreen}) => {
+const Instruction = ({displayScreen, pickDifficulty, difficulty}) => {
+  const [level, setLevel] = useState(null);
+
+  useEffect(()=>{
+    setLevel(difficulty)
+  }, [difficulty])
+
+  console.log(difficulty)
   return (
     <>
         <div className="instruction">
@@ -48,17 +57,42 @@ const Instruction = ({displayScreen}) => {
                   </div>
                 </div>
               </div>
-                
-                
 
-                <div
+              
+          </div>
+          <div className="levels ">
+                  <div 
+                    onClick={() => {pickDifficulty("easy")}} 
+                    className={(level === "easy")
+                      ? "level easy instruction__button"
+                      : "level instruction__button"}
+                    >Easy
+                  </div>
+                  <div 
+                    onClick={() => {pickDifficulty("medium")}} 
+                    className={(level === "medium")
+                      ? "level medium instruction__button"
+                      : "level instruction__button"}
+                    >Medium
+                  </div>
+                  <div 
+                    onClick={() => {pickDifficulty("hard")}} 
+                    className={(level === "hard")
+                      ? "level hard instruction__button"
+                      : "level instruction__button"}
+                    >Hard
+                  </div>
+                  {/* <div onClick={() => {pickDifficulty("medium")}} className="level instruction__button">Medium</div>
+                  <div onClick={() => {pickDifficulty("hard")}} className="level instruction__button">Hard</div> */}
+                  <div
                     onClick={() => {displayScreen()}}
                     className="instruction__button"
-                >
-                    Start!
+                  >
+                      Start!
+                  </div>
                 </div>
-            </div>
         </div>
+        
     </>
   )
 }

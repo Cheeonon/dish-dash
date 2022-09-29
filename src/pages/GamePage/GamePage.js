@@ -10,18 +10,23 @@ const GamePage = () => {
   const location = useLocation();
   const userProfile = location.state.userProfile;
   const[isInstruction, setIsInstruction] = useState(true);
+  const[difficulty, setDifficulty] = useState(null);
 
   const displayScreen = () =>{
     setIsInstruction(false);
   } 
 
+  const pickDifficulty = (level) =>{
+    setDifficulty(level);
+  } 
+
   if(isInstruction){
-    return <Instruction displayScreen={displayScreen}/>
+    return <Instruction displayScreen={displayScreen} pickDifficulty={pickDifficulty} difficulty={difficulty}/>
   }
 
   return(
     <div className="game-page-test">
-        <Screen userProfile={userProfile}/>
+        <Screen userProfile={userProfile} difficulty={difficulty}/>
     </div>
   )
 }

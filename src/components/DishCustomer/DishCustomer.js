@@ -3,7 +3,7 @@ import Customer from '../Customer/Customer';
 import Dish from '../Dish/Dish';
 import './DishCustomer.scss';
 
-const DishCustomer = ({isPaused, handleScore, foodList, platformHeightArr, grabbedFood, shootDish, setShootFalse, currentPlatformIndex, setGameOver, isGameOver}) => {
+const DishCustomer = ({difficulty, isPaused, handleScore, foodList, platformHeightArr, grabbedFood, shootDish, setShootFalse, currentPlatformIndex, setGameOver, isGameOver}) => {
 
     const [dishArr, setDishArr] = useState([]);
     const [dishNum, setDishNum] = useState(300);
@@ -14,6 +14,16 @@ const DishCustomer = ({isPaused, handleScore, foodList, platformHeightArr, grabb
     const [foodNum, setFoodNum] = useState(500);
     const [wantFood, setWantFood] = useState(null);
    
+    let speed = 5000;
+
+    if(difficulty === "easy"){
+        speed = 5000;
+    } else if (difficulty === "medium"){
+        speed = 3000;
+    } else if (difficulty === "hard"){
+        speed = 1000;
+    } 
+
     // when z is pressed, it shoots one dish
     useEffect(() => {
         if(shootDish){
@@ -37,7 +47,7 @@ const DishCustomer = ({isPaused, handleScore, foodList, platformHeightArr, grabb
     const setNewCustomer = () => {
         setInterval(()=>{
             setCustomerNum(customerNum => customerNum + 1);
-        }, 1000);
+        }, speed);
     }
 
     // executes code to create a customer once new customer is added to the array

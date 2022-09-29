@@ -17,7 +17,6 @@ const RootPage = () => {
                         <ul className="root__list">
                             <Link to="/users/sign-up" className="root__item" onClick={handleSignUp}>Sign up</Link>
                             <Link to="/users/login" className="root__item">Login</Link>
-                            <Link to="/game" className="root__item">Local Play</Link>
                         </ul>
                     </div>
                 </div>
