@@ -34,7 +34,6 @@ Dish Dash is a platform game that the player become a server who must keep custo
 
 ## Installation
 
-Install DishDash with npm
 
 ```bash
   git clone https://git@github.com:nickhuynhq/carma.git
