@@ -19,6 +19,7 @@
           align-items: center;
           border-radius: 10px;
           width: 60%;
+          height: 80vh;
           padding: 2rem;
           animation: appear 1s ease-in forwards;
           box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.608);
@@ -47,7 +48,6 @@
         &-section{
             display: flex;
             border-bottom: dotted 4px black;
-            margin: 2rem;
         }
 
         &-item{
@@ -71,6 +71,8 @@
           background: none;
           background-color: rgb(21, 134, 134);
           color: white;
+          position: absolute;
+          bottom: 0.7rem;
           
           &:hover{
                 transform: scale(1.05);
