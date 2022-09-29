@@ -1,12 +1,16 @@
 
 # DishDash
 
+
+
 Dish Dash is a platform game that the player become a server who must keep customers happy by serving the food that they want. 
 
-![Screen Shot 2022-09-28 at 2 42 12 PM](https://user-images.githubusercontent.com/87233311/193019305-896f2ebe-a43c-48b9-bec4-1a99e49a9565.png)
+![dishDash](https://user-images.githubusercontent.com/87233311/193020033-5f4cac40-39a4-4553-bf7e-ab101af364a0.png)
+
 
 ## Game Play
-![Screen Shot 2022-09-28 at 2 42 22 PM](https://user-images.githubusercontent.com/87233311/193019422-c4aca27b-8e4e-493d-9d55-2add962034d8.png)
+
+![gameplay](https://user-images.githubusercontent.com/87233311/193019994-5ae9a7e1-b92e-47a2-8fc8-91fa06a87e06.png)
 
 * Keep customers happy by serving the food they want.
 
