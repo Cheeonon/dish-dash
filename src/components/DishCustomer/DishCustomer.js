@@ -3,7 +3,7 @@ import Customer from '../Customer/Customer';
 import Dish from '../Dish/Dish';
 import './DishCustomer.scss';
 
-const DishCustomer = ({difficulty, isPaused, handleScore, foodList, platformHeightArr, grabbedFood, shootDish, setShootFalse, currentPlatformIndex, setGameOver, isGameOver}) => {
+const DishCustomer = ({minusUserHeart, difficulty, isPaused, handleScore, foodList, platformHeightArr, grabbedFood, shootDish, setShootFalse, currentPlatformIndex}) => {
 
     const [dishArr, setDishArr] = useState([]);
     const [dishNum, setDishNum] = useState(300);
@@ -108,9 +108,9 @@ const DishCustomer = ({difficulty, isPaused, handleScore, foodList, platformHeig
 
                     // if dish is at the end of the screen
                     if(dishPosition < 0){
-                        setGameOver();
+                        minusUserHeart();
                     }
-
+ 
                     // dish & customer collision
                     if(customerArr.length){
                         for(let j = 0; j < customerArr.length; j++){
@@ -147,42 +147,46 @@ const DishCustomer = ({difficulty, isPaused, handleScore, foodList, platformHeig
             return;
         }
 
+
         const targetCustomer = customerArr.filter((customer) => customer.customerNum === collideCustomerIndex);
         
-        if(checkWantFood !== checkGrabbedFood){
-            const survivedDishes = dishArr.filter((dish) => dish.dishNum !== collideDishIndex);
-
-            customerArr.forEach((customer) => {
-                if(customer.customerNum === targetCustomer[0].customerNum){
-                    customer.status = "angry";
-                }
-            })
-
-            setCustomerArr(customerArr);
-            setDishArr(survivedDishes);
-
-            setTimeout(()=>{
-                setGameOver();
-            }, 1000)
-
-        } else{
-            // const survivedCustomers = customerArr.filter((customer) => customer.customerNum !== collideCustomerIndex);
-            const survivedDishes = dishArr.filter((dish) => dish.dishNum !== collideDishIndex);
-
-            customerArr.forEach((customer) => {
-                if(customer.customerNum === targetCustomer[0].customerNum){
-                    customer.status = "happy";
-                }
-            })
-
-            // setCustomerArr(survivedCustomers);
-            setCustomerArr(customerArr);
-            setDishArr(survivedDishes);
-            handleScore();
-
+        try{
+            if(checkWantFood !== checkGrabbedFood){
+                const survivedDishes = dishArr.filter((dish) => dish.dishNum !== collideDishIndex);
+    
+                customerArr.forEach((customer) => {
+                    if(customer.customerNum === targetCustomer[0].customerNum){
+                        customer.status = "angry";
+                    }
+                })
+    
+                setCustomerArr(customerArr);
+                setDishArr(survivedDishes);
+    
+                setTimeout(()=>{
+                    minusUserHeart();
+                }, 1000)
+    
+            } else{
+                // const survivedCustomers = customerArr.filter((customer) => customer.customerNum !== collideCustomerIndex);
+                const survivedDishes = dishArr.filter((dish) => dish.dishNum !== collideDishIndex);
+    
+                customerArr.forEach((customer) => {
+                    if(customer.customerNum === targetCustomer[0].customerNum){
+                        customer.status = "happy";
+                    }
+                })    
+                // setCustomerArr(survivedCustomers);
+                setCustomerArr(customerArr);
+                setDishArr(survivedDishes);
+                handleScore();
+            }
+            
+            setIsNewArr(false); 
+        } catch{
+            console.log("error in collision detection");
         }
-        
-        setIsNewArr(false);
+      
 
     }, [isNewArr])
 
@@ -200,8 +204,8 @@ const DishCustomer = ({difficulty, isPaused, handleScore, foodList, platformHeig
 
     return (
         <>
-            {dishArr.map(dish => (<Dish key={dish.dishNum} isPaused={isPaused} height={dish.height} dishNum = {dish.dishNum} setGameOver={setGameOver} grabbedFood={dish.grabbedFood} foodNum={foodNum}/>))} 
-            {customerArr.map(customer => ( <Customer removeCustomer = {removeCustomer} key={customer.customerNum} isPaused={isPaused} height={customer.height} customerNum = {customer.customerNum} setGameOver={setGameOver} isGameOver={isGameOver} wantFood={customer.wantFood} customerDeadPosition={customerDeadPosition} randomCustomer={customer.randomCustomer} status={customer.status}/>))}
+            {dishArr.map(dish => (<Dish key={dish.dishNum} isPaused={isPaused} height={dish.height} dishNum = {dish.dishNum}grabbedFood={dish.grabbedFood} foodNum={foodNum}/>))} 
+            {customerArr.map(customer => ( <Customer removeCustomer = {removeCustomer} key={customer.customerNum} isPaused={isPaused} height={customer.height} customerNum = {customer.customerNum} wantFood={customer.wantFood} customerDeadPosition={customerDeadPosition} randomCustomer={customer.randomCustomer} status={customer.status}/>))}
         </>
     )
 }

@@ -18,11 +18,6 @@ const TestScreen = ({userProfile, difficulty}) => {
         platformHeightArr.push(screenHeight / platformNum * i + 100); 
     }
 
-    const heartsArr = []
-    for(let i = 0; i < userProfile.hearts; i++){
-        heartsArr.push(i);
-    } 
-
     const foodList = ["egg", "masago", "salmon", "shirimp"];
     const [grabbedFood, setGrabbedFood] = useState(null);
     const [grabDish, setGrabDish] = useState(false);
@@ -35,16 +30,29 @@ const TestScreen = ({userProfile, difficulty}) => {
     const [isPaused, setIsPaused] = useState(false);
     const [timeChecker, setTimeChecker] = useState(0);
 
+    const [userHeart, setUserHeart] = useState(userProfile.hearts);
+    const [isDoubled, setIsDoubled] = useState(userProfile.double_score);
+
+    console.log(userProfile.double_score)
+
     const setShootFalse = () => {
         setShootDish(false);
     }
 
-    const setGameOver = () => {
-        setIsGameOver(true);
+    const handleScore = () => {
+        if(isDoubled){
+            setScore(score + 100);
+        } else{
+            setScore(score + 50);
+        }
     }
 
-    const handleScore = () => {
-        setScore(score + 50)
+    const minusUserHeart = () => {
+        if(userHeart != 1){
+            setUserHeart(userHeart - 1);
+        } else{
+            setIsGameOver(true);
+        }
     }
 
     useEffect(() => {
@@ -128,17 +136,20 @@ const TestScreen = ({userProfile, difficulty}) => {
         return <GameOverModal userProfile={userProfile} score={score} time={time}/>
     } 
 
+
+
+
     return (
         <>
             {isPaused && <div className='screen__paused'>GAME PAUSED</div>}
             <div className="userProfile">
-                    {heartsArr.map(heart => <div className="userProfile__heart"></div>)}
+                    <div className="userProfile__heart">♥x{userHeart}</div>   
                     <div className="userProfile__score">💰{score}</div>
                     <div className="userProfile__time">{time}</div>
             </div>
             {platformHeightArr.map((platform, index) => (<Platform key = {index} height = {platform}/>))}
             <Player platformHeightArr={platformHeightArr} currentPlatformIndex={currentPlatformIndex} grabbedFood={grabbedFood}/>
-            <DishCustomer difficulty={difficulty} isPaused={isPaused} foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} setGameOver = {setGameOver} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
+            <DishCustomer difficulty={difficulty} isPaused={isPaused} foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} minusUserHeart = {minusUserHeart} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
             {foodList.map((food, index) => ( <Food key = {index + 100} height={platformHeightArr[index]} food={food}/>))}
            
         </>

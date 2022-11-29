@@ -13,7 +13,6 @@ const Instruction = ({displayScreen, pickDifficulty, difficulty}) => {
     setLevel(difficulty)
   }, [difficulty])
 
-  console.log(difficulty)
   return (
     <>
         <div className="instruction">
@@ -31,7 +30,7 @@ const Instruction = ({displayScreen, pickDifficulty, difficulty}) => {
                   </div>
                   <div className="instruction__gallery-item">
                     <img className="instruction__img" src={brokenPlateURL}/>
-                    <p className="font">If the plate is deliver to an empty lane, plate whill be broken.</p>
+                    <p className="font">If the plate is deliver to an empty lane, plate will be broken.</p>
                   </div>
                 </div>
                 <div className="instruction__gallery-section">

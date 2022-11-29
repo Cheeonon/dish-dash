@@ -42,11 +42,10 @@
     }
 
     &__heart{
-        background: url('../../assets/icons/heart-white.svg') no-repeat center;
         background-size: center;
-        width: 40px;
-        height: 40px;
-        margin: 0.5rem;
+        margin: 0 3rem;
+        font-size: 3rem;
+        color: white;
     }
     
 }

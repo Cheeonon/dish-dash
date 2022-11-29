@@ -10,8 +10,8 @@
 
     &__desc{
         position: absolute;
-        top: 25%;
-        left: calc(50% - 12rem);
+        top: 28%;
+        left: calc(50% - 4rem);
         z-index: 1;
         color: white;
         font-size: 1.3rem;
@@ -31,6 +31,30 @@
         }
     }
 
+    &__coins{
+        position: absolute;
+        right: 50px;
+        top: 50px;
+        font-size: 2.5rem;
+        z-index: 10;
+    }
+
+    &__hearts{
+        position: absolute;
+        right: 50px;
+        top: 100px;
+        font-size: 2.5rem;
+        z-index: 10;
+    }
+
+    &__double-score{
+        position: absolute;
+        right: 50px;
+        top: 150px;
+        font-size: 2.5rem;
+        z-index: 10;
+    }
+
     &__content{
         height: 100%;
         width: 100%;
@@ -44,16 +68,12 @@
         height: 70px;
         margin: 2rem;
         cursor: pointer;
+        position: relative;
         
         &:hover{
             animation: spin alternate 2s infinite;
             box-shadow: 0 0  15px 15px rgba(238, 238, 175, 0.443);
             border-radius: 10px;
-        }
-
-        &--dish{
-            background: url("../../assets/background/dish-black.svg") no-repeat center;
-            background-size: contain;
         }
     
         &--heart{
@@ -65,7 +85,268 @@
             background: url("../../assets//icons/doublescore.png") no-repeat center;
             background-size: contain;
         }
+
+        &-title{
+            width: 200%;
+            position: absolute;
+            bottom: -2rem;
+        }
     }
 
+    &__modal{
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        position: absolute;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: rgba(62, 62, 62, 0.6);
+        
+        &-content{
+            width: 50vw;
+            height: 50vh;
+            background-color: white;
+            border-radius: 15px;
+            position: relative;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        &-back{
+            background: url('../../assets/icons/arrow-left-solid-black.svg') no-repeat center;
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            width: 40px;
+            height: 40px;
+            z-index:10;
     
+            &:hover{
+                transform: scale(1.15);
+            }  
+        }
+    }
+    
+}
+
+.heart{
+
+    &__img{
+        background: url("../../assets/icons/heart.png") no-repeat center;
+        background-size: contain;
+        width: 100px;
+        height: 100px;
+    }
+
+    &__detail{
+        width: 50%;
+    }
+
+    &__desc{
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &__price{
+        font-size: 1.3rem;
+        display: block;
+        margin-bottom: 4rem;
+    }
+
+    &__btn{
+
+        &--item{
+            margin-bottom: 1rem;
+            padding: .5rem 1rem;
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            font-size: .8rem;
+            display: block;
+
+            &:hover{
+                color: aquamarine;
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &__error{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        width: 90%;
+        height: 100%;
+        text-align: center;
+        background-color: white;
+        position: absolute;
+        z-index: 20;
+
+        &-msg{
+            margin-bottom: 4rem;
+        }
+
+        &-btn{
+            text-align: right;
+            margin-bottom: 1rem;
+            padding: .5rem 1rem;
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2rem;
+            display: block;
+
+            &:hover{
+                color: aquamarine;
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &__success{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        width: 90%;
+        text-align: center;
+        height: 100%;
+        background-color: white;
+        position: absolute;
+        z-index: 20;
+        
+                
+        &-msg{
+            margin-bottom: 4rem;
+        }
+
+        &-btn{
+            text-align: right;
+            margin-bottom: 1rem;
+            padding: .5rem 1rem;
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2rem;
+            display: block;
+
+            &:hover{
+                color: aquamarine;
+                transform: scale(1.1);
+            }
+        }
+    }
+}
+
+.double{
+
+    &__img{
+        background: url("../../assets/icons/doublescore.png") no-repeat center;
+        background-size: contain;
+        width: 100px;
+        height: 100px;
+    }
+
+    &__detail{
+        width: 50%;
+    }
+
+    &__desc{
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    &__price{
+        font-size: 1.3rem;
+        display: block;
+        margin-bottom: 4rem;
+    }
+
+    &__btn{
+
+        &--item{
+            margin-bottom: 1rem;
+            padding: .5rem 1rem;
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            font-size: .8rem;
+            display: block;
+
+            &:hover{
+                color: aquamarine;
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &__error{
+        display: flex;
+        flex-direction: column;
+        font-size: 1.5rem;
+        width: 80%;
+
+        &-msg{
+            margin-bottom: 4rem;
+        }
+
+        &-btn{
+            text-align: right;
+            margin-bottom: 1rem;
+            padding: .5rem 1rem;
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2rem;
+            display: block;
+
+            &:hover{
+                color: aquamarine;
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    &__success{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5rem;
+        width: 90%;
+        text-align: center;
+        height: 100%;
+        background-color: white;
+        position: absolute;
+        z-index: 20;
+        
+                
+        &-msg{
+            margin-bottom: 4rem;
+        }
+
+        &-btn{
+            text-align: right;
+            margin-bottom: 1rem;
+            padding: .5rem 1rem;
+            background-color: black;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.2rem;
+            display: block;
+
+            &:hover{
+                color: aquamarine;
+                transform: scale(1.1);
+            }
+        }
+    }
 }

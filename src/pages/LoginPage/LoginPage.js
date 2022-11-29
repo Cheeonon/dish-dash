@@ -15,9 +15,8 @@ const LoginPage = () => {
 
     const handleSubmit = (event) => {
 
-        setUserName(event.target.userName.value);
-        setPassword(event.target.password.value);
-
+        setUserName(event.target.userName.value.toUpperCase());
+        setPassword(event.target.password.value.toUpperCase());
         event.preventDefault();
         event.target.reset();
 

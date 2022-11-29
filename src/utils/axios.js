@@ -28,5 +28,9 @@ export const getTopScores = () => {
 };
 
 export const updateHearts = (body) => {
-    return axios.get(`${baseURL}/update/heart`, body);
+    return axios.post(`${baseURL}/update/heart`, body);
+};
+
+export const buyDoubleScore = (body) => {
+    return axios.post(`${baseURL}/update/doubleScore`, body);
 };

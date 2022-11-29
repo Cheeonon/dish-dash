@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "./Customer.scss";
 
 const Customer = ({ removeCustomer, status, isPaused, height, customerNum, wantFood, customerDeadPosition, randomCustomer}) => {
