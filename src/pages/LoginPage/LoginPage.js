@@ -42,6 +42,7 @@ const LoginPage = () => {
                 setErrorMsg(error.response.data.message);
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSubmitted])
 
     if(isLoggedIn){

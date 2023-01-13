@@ -20,7 +20,6 @@ const LeaderboardPage = () => {
                 console.log(error)
             });
             
-            
     }, []);
     
     useEffect(() => {
@@ -33,6 +32,7 @@ const LeaderboardPage = () => {
     
             setTopFive(topFiveArr);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [topScores])
 
     if (!topScores) {

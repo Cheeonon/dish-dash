@@ -34,6 +34,7 @@ const UpgradePage = () => {
             setUserCoin(resolve.data.userProfile.coins);
             setUserHeart(resolve.data.userProfile.hearts);
         }) 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [displaySuccess])
 
     const handleBuyHeart = () => {

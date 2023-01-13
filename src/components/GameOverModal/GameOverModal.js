@@ -19,6 +19,7 @@ const GameOverModal = ({userProfile, score, time}) => {
         .then(resolve => {
             console.log(resolve.data)
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

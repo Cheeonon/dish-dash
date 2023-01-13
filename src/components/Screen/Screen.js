@@ -33,8 +33,6 @@ const TestScreen = ({userProfile, difficulty}) => {
     const [userHeart, setUserHeart] = useState(userProfile.hearts);
     const [isDoubled, setIsDoubled] = useState(userProfile.double_score);
 
-    console.log(userProfile.double_score)
-
     const setShootFalse = () => {
         setShootDish(false);
     }
@@ -48,7 +46,7 @@ const TestScreen = ({userProfile, difficulty}) => {
     }
 
     const minusUserHeart = () => {
-        if(userHeart != 1){
+        if(userHeart !== 1){
             setUserHeart(userHeart - 1);
         } else{
             setIsGameOver(true);
@@ -63,12 +61,14 @@ const TestScreen = ({userProfile, difficulty}) => {
         if(!isPaused){
             setMiliSec(miliSec => miliSec + 1)
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [timeChecker])
 
     useEffect(() => {
         if(!isPaused){
             setTime(format(miliSec));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [miliSec])
 
     const displayTime = () => {
@@ -128,6 +128,7 @@ const TestScreen = ({userProfile, difficulty}) => {
         return () => {
             window.removeEventListener("keydown", handleMove);
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPlatformIndex]);
 
 
@@ -148,8 +149,8 @@ const TestScreen = ({userProfile, difficulty}) => {
                     <div className="userProfile__time">{time}</div>
             </div>
             {platformHeightArr.map((platform, index) => (<Platform key = {index} height = {platform}/>))}
-            <Player platformHeightArr={platformHeightArr} currentPlatformIndex={currentPlatformIndex} grabbedFood={grabbedFood}/>
-            <DishCustomer difficulty={difficulty} isPaused={isPaused} foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} minusUserHeart = {minusUserHeart} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
+            <Player grabDish={grabDish} platformHeightArr={platformHeightArr} currentPlatformIndex={currentPlatformIndex} grabbedFood={grabbedFood}/>
+            <DishCustomer setIsDoubled={setIsDoubled} difficulty={difficulty} isPaused={isPaused} foodList={foodList} handleScore={handleScore} grabbedFood={grabbedFood} isGameOver = {isGameOver} minusUserHeart = {minusUserHeart} setShootFalse = {setShootFalse} currentPlatformIndex={currentPlatformIndex} platformHeightArr={platformHeightArr} shootDish={shootDish}/>
             {foodList.map((food, index) => ( <Food key = {index + 100} height={platformHeightArr[index]} food={food}/>))}
            
         </>

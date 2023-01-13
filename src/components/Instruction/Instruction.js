@@ -21,15 +21,15 @@ const Instruction = ({displayScreen, pickDifficulty, difficulty}) => {
               <div className="instruction__gallery">
               <div className="instruction__gallery-section">
                   <div className="instruction__gallery-item">
-                    <img className="instruction__img" src={servingURL}/>
+                    <img alt="customer with smile face" className="instruction__img" src={servingURL}/>
                     <p className="font">Keep customers happy by serving the food they want.</p>
                   </div>
                   <div className="instruction__gallery-item">
-                    <img className="instruction__img scaleUp" src={patienceURL}/>
+                    <img alt="customer with angry face" className="instruction__img scaleUp" src={patienceURL}/>
                     <p className="font">If the customers wait too long, they'll get upset and leave.</p>
                   </div>
                   <div className="instruction__gallery-item">
-                    <img className="instruction__img" src={brokenPlateURL}/>
+                    <img alt="empty lane with dish flying over" className="instruction__img" src={brokenPlateURL}/>
                     <p className="font">If the plate is deliver to an empty lane, plate will be broken.</p>
                   </div>
                 </div>
