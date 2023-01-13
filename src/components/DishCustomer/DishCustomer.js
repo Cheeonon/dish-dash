@@ -36,12 +36,13 @@ const DishCustomer = ({minusUserHeart, difficulty, isPaused, handleScore, foodLi
             setShootFalse();
         }
         
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [shootDish])
-    
 
     // new customer appears every 5 seconds
     useEffect(()=>{
         setNewCustomer();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const setNewCustomer = () => {
@@ -66,6 +67,7 @@ const DishCustomer = ({minusUserHeart, difficulty, isPaused, handleScore, foodLi
 
         newCustomerArr.push({customerNum, height, wantFood, randomCustomer});
         setCustomerArr(newCustomerArr);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [customerNum])
 
     const [collideDishIndex, setCollideDishIndex] = useState(null);
@@ -187,7 +189,7 @@ const DishCustomer = ({minusUserHeart, difficulty, isPaused, handleScore, foodLi
             console.log("error in collision detection");
         }
       
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isNewArr])
 
     const [remove, setRemove] = useState(false);
@@ -199,6 +201,7 @@ const DishCustomer = ({minusUserHeart, difficulty, isPaused, handleScore, foodLi
     useEffect(()=>{
         const survivedCustomers = customerArr.filter((customer) => customer.customerNum !== collideCustomerIndex);
         setCustomerArr(survivedCustomers);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [remove])
         
 
