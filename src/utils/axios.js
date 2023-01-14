@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const PORT = 8080;
-const baseURL = `http://localhost:${PORT}`;
+const baseURL = `https://dish-dash-api-production.up.railway.app`;
 
 export const postSignUp = (body) => {
     return axios.post(`${baseURL}/users/sign-up`, body);
