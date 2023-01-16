@@ -19,6 +19,7 @@ function App() {
         <Route path="/leaderboard" element={<LeaderboardPage />}/>
         <Route path="/upgrade" element={<UpgradePage />}/>
         <Route path="/" element={<RootPage />}/>
+        <Route path='*' exact={true} element={<GamePage />} />
       </Routes>
     </BrowserRouter>
   );
