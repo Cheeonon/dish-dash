@@ -36,12 +36,7 @@ const GameOverModal = ({userProfile, score, time}) => {
                         >
                             Home
                         </button>
-                        <li
-                            onClick={() => navigate(0)}
-                            className="upload-modal__button upload-modal__button--white"
-                        >
-                            Play again
-                        </li>
+                       
                     </div>
                 </div>
             </div>
