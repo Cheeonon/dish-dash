@@ -14,7 +14,7 @@ const GameOverModal = ({userProfile, score, time}) => {
             score: score,
             time: time
         }
-    
+     
         postScores(body)
         .then(resolve => {
             console.log(resolve.data)
@@ -37,7 +37,7 @@ const GameOverModal = ({userProfile, score, time}) => {
                             Home
                         </button>
                         <li
-                            onClick={() => navigate(0)}
+                            onClick={() => navigate('/game')}
                             className="upload-modal__button upload-modal__button--white"
                         >
                             Play again
